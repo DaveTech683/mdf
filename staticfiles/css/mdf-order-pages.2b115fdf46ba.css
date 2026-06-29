@@ -1,0 +1,559 @@
+/* MODEST DAILY FASHION — ORDER / PAYMENT PAGES
+   Unique prefix: mdf-order-
+   Safe to use beside existing CSS without class conflicts. */
+
+#mdf-order-tracking-page,
+#mdf-order-payment-page,
+#mdf-order-summary-page,
+#mdf-order-shipped-page {
+  width: 100%;
+}
+
+.mdf-order-page {
+  min-height: 100vh;
+  padding: 74px 16px 90px;
+  background:
+    radial-gradient(circle at top left, rgba(189, 149, 81, 0.16), transparent 34%),
+    radial-gradient(circle at bottom right, rgba(72, 26, 56, 0.12), transparent 30%),
+    linear-gradient(135deg, #fffaf3 0%, #f8eee8 52%, #f5e5dc 100%);
+}
+
+.mdf-order-container {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.mdf-order-hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.mdf-order-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 15px;
+  margin-bottom: 14px;
+  border-radius: 999px;
+  background: rgba(72, 26, 56, 0.08);
+  color: #481a38;
+  border: 1px solid rgba(189, 149, 81, 0.22);
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.mdf-order-title {
+  margin: 0 0 10px;
+  color: #3b1830;
+  font-size: clamp(2rem, 4vw, 3.35rem);
+  line-height: 1.08;
+  font-weight: 800;
+}
+
+.mdf-order-subtitle {
+  margin: 0;
+  max-width: 650px;
+  color: #876b7a;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.mdf-order-hero-card {
+  min-width: 210px;
+  padding: 18px 20px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(189, 149, 81, 0.22);
+  box-shadow: 0 18px 44px rgba(59, 24, 48, 0.1);
+}
+
+.mdf-order-hero-card span {
+  display: block;
+  color: #876b7a;
+  font-size: 0.8rem;
+  margin-bottom: 4px;
+}
+
+.mdf-order-hero-card strong {
+  display: block;
+  color: #3b1830;
+  font-size: 1.35rem;
+}
+
+.mdf-order-panel {
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(189, 149, 81, 0.24);
+  border-radius: 28px;
+  box-shadow: 0 24px 70px rgba(59, 24, 48, 0.13);
+  overflow: hidden;
+}
+
+.mdf-order-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 24px 28px;
+  background: linear-gradient(135deg, rgba(72, 26, 56, 0.96), rgba(101, 46, 82, 0.96));
+  color: #fff;
+}
+
+.mdf-order-panel-header h2 {
+  margin: 0;
+  font-size: 1.35rem;
+  color: #fff;
+}
+
+.mdf-order-panel-header p {
+  margin: 5px 0 0;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.92rem;
+}
+
+.mdf-order-panel-icon {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18px;
+  color: #3b1830;
+  background: #d9b46a;
+  font-size: 1.35rem;
+}
+
+.mdf-order-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.mdf-order-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.mdf-order-table thead {
+  background: #fff7ec;
+}
+
+.mdf-order-table th {
+  padding: 17px 20px;
+  color: #3b1830;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  border-bottom: 1px solid rgba(189, 149, 81, 0.22);
+}
+
+.mdf-order-table td {
+  padding: 18px 20px;
+  color: #684b5b;
+  font-size: 0.94rem;
+  vertical-align: middle;
+  border-bottom: 1px solid rgba(72, 26, 56, 0.08);
+}
+
+.mdf-order-table tbody tr {
+  transition: background 0.25s ease;
+}
+
+.mdf-order-table tbody tr:hover {
+  background: rgba(189, 149, 81, 0.06);
+}
+
+.mdf-order-product-list {
+  display: grid;
+  gap: 6px;
+}
+
+.mdf-order-product-pill {
+  display: inline-flex;
+  width: fit-content;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: rgba(72, 26, 56, 0.06);
+  color: #3b1830;
+  font-weight: 600;
+  font-size: 0.85rem;
+  text-decoration: none;
+}
+
+.mdf-order-product-pill:hover {
+  color: #bd9551;
+}
+
+.mdf-order-price {
+  font-weight: 800;
+  color: #3b1830;
+  white-space: nowrap;
+}
+
+.mdf-order-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.mdf-order-status--shipped {
+  color: #176348;
+  background: rgba(23, 99, 72, 0.1);
+}
+
+.mdf-order-status--pending {
+  color: #9a6415;
+  background: rgba(217, 180, 106, 0.22);
+}
+
+.mdf-order-action-btn,
+.mdf-order-primary-btn,
+.mdf-order-secondary-btn {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border: none;
+  border-radius: 999px;
+  padding: 0 22px;
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease, color 0.25s ease;
+}
+
+.mdf-order-primary-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #3b1830, #633153);
+  color: #fff;
+  box-shadow: 0 14px 30px rgba(59, 24, 48, 0.2);
+}
+
+.mdf-order-primary-btn:hover {
+  transform: translateY(-2px);
+  color: #3b1830;
+  background: linear-gradient(135deg, #bd9551, #d9b46a);
+  box-shadow: 0 18px 36px rgba(59, 24, 48, 0.24);
+}
+
+.mdf-order-action-btn {
+  min-height: 40px;
+  padding: 0 15px;
+  background: rgba(192, 57, 43, 0.09);
+  color: #a93226;
+  border: 1px solid rgba(192, 57, 43, 0.2);
+  font-size: 0.72rem;
+}
+
+.mdf-order-action-btn:hover {
+  color: #fff;
+  background: #a93226;
+}
+
+.mdf-order-form-card {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  overflow: hidden;
+}
+
+.mdf-order-form-aside {
+  padding: 48px 38px;
+  color: #fff;
+  background: linear-gradient(145deg, rgba(59, 24, 48, 0.96), rgba(97, 45, 80, 0.96));
+}
+
+.mdf-order-form-aside h2 {
+  margin: 0 0 14px;
+  color: #fff;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  line-height: 1.12;
+}
+
+.mdf-order-form-aside p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.75;
+}
+
+.mdf-order-trust-list {
+  display: grid;
+  gap: 15px;
+  margin-top: 34px;
+}
+
+.mdf-order-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.mdf-order-trust-item i {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #3b1830;
+  background: #d9b46a;
+}
+
+.mdf-order-form-main {
+  padding: 42px 38px;
+}
+
+.mdf-order-form-title {
+  margin-bottom: 28px;
+}
+
+.mdf-order-form-title h3 {
+  margin: 0 0 8px;
+  color: #3b1830;
+  font-size: 1.55rem;
+}
+
+.mdf-order-form-title p {
+  margin: 0;
+  color: #876b7a;
+  font-size: 0.93rem;
+  line-height: 1.6;
+}
+
+.mdf-order-django-form p {
+  margin: 0 0 18px;
+}
+
+.mdf-order-django-form label {
+  display: block;
+  margin-bottom: 8px;
+  color: #3b1830;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.mdf-order-django-form input,
+.mdf-order-django-form select,
+.mdf-order-django-form textarea {
+  width: 100%;
+  min-height: 52px;
+  border: 1px solid rgba(72, 26, 56, 0.14);
+  border-radius: 15px;
+  padding: 0 15px;
+  color: #3b1830;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.mdf-order-django-form textarea {
+  min-height: 110px;
+  padding-top: 14px;
+}
+
+.mdf-order-django-form input:focus,
+.mdf-order-django-form select:focus,
+.mdf-order-django-form textarea:focus {
+  border-color: #bd9551;
+  box-shadow: 0 0 0 4px rgba(189, 149, 81, 0.16);
+}
+
+.mdf-order-summary-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) 360px;
+  gap: 24px;
+  align-items: start;
+}
+
+.mdf-order-summary-card,
+.mdf-order-total-card {
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(189, 149, 81, 0.24);
+  box-shadow: 0 24px 70px rgba(59, 24, 48, 0.12);
+  overflow: hidden;
+}
+
+.mdf-order-summary-header {
+  padding: 24px 28px;
+  background: #fff7ec;
+  border-bottom: 1px solid rgba(189, 149, 81, 0.18);
+}
+
+.mdf-order-summary-header h2 {
+  margin: 0 0 6px;
+  color: #3b1830;
+  font-size: 1.35rem;
+}
+
+.mdf-order-summary-header p {
+  margin: 0;
+  color: #876b7a;
+  font-size: 0.9rem;
+}
+
+.mdf-order-summary-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.mdf-order-summary-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 18px;
+  padding: 20px 28px;
+  border-bottom: 1px solid rgba(72, 26, 56, 0.08);
+}
+
+.mdf-order-summary-item:last-child {
+  border-bottom: 0;
+}
+
+.mdf-order-summary-item h3 {
+  margin: 0 0 6px;
+  color: #3b1830;
+  font-size: 1rem;
+}
+
+.mdf-order-summary-meta {
+  color: #876b7a;
+  font-size: 0.86rem;
+}
+
+.mdf-order-summary-price {
+  color: #3b1830;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.mdf-order-total-card {
+  padding: 28px;
+  position: sticky;
+  top: 110px;
+}
+
+.mdf-order-total-card h2 {
+  margin: 0 0 18px;
+  color: #3b1830;
+  font-size: 1.35rem;
+}
+
+.mdf-order-total-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 13px 0;
+  color: #876b7a;
+  border-bottom: 1px solid rgba(72, 26, 56, 0.08);
+}
+
+.mdf-order-total-row strong {
+  color: #3b1830;
+}
+
+.mdf-order-total-final {
+  margin: 18px 0 22px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.mdf-order-total-final span {
+  color: #876b7a;
+}
+
+.mdf-order-total-final strong {
+  color: #3b1830;
+  font-size: 1.75rem;
+}
+
+.mdf-order-empty-state {
+  padding: 54px 24px;
+  text-align: center;
+  color: #876b7a;
+}
+
+.mdf-order-empty-state i {
+  display: block;
+  margin-bottom: 12px;
+  color: #bd9551;
+  font-size: 2.1rem;
+}
+
+.mdf-order-empty-state h3 {
+  margin: 0 0 8px;
+  color: #3b1830;
+}
+
+@media (max-width: 991px) {
+  .mdf-order-page {
+    padding: 56px 14px 72px;
+  }
+
+  .mdf-order-hero,
+  .mdf-order-form-card,
+  .mdf-order-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .mdf-order-hero-card {
+    min-width: 0;
+  }
+
+  .mdf-order-total-card {
+    position: static;
+  }
+}
+
+@media (max-width: 640px) {
+  .mdf-order-page {
+    padding: 38px 12px 58px;
+  }
+
+  .mdf-order-panel,
+  .mdf-order-summary-card,
+  .mdf-order-total-card {
+    border-radius: 22px;
+  }
+
+  .mdf-order-panel-header {
+    align-items: flex-start;
+    padding: 22px;
+  }
+
+  .mdf-order-form-aside,
+  .mdf-order-form-main {
+    padding: 32px 22px;
+  }
+
+  .mdf-order-summary-item {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 18px 22px;
+  }
+
+  .mdf-order-total-final strong {
+    font-size: 1.45rem;
+  }
+}
