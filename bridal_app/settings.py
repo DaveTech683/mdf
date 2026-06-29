@@ -11,18 +11,27 @@ except ImportError:
 
 load_dotenv()
 
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
-        conn_max_age=0,
-        ssl_require=True,
-    )
-}
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+DATABASE_URL = os.environ.get("DATABASE_URL")
+
+if DATABASE_URL:
+    DATABASES = {
+        "default": dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=True,
+        )
+    }
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
@@ -137,18 +146,7 @@ WSGI_APPLICATION = 'bridal_app.wsgi.application'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 
-# DATABASES = {
-#     'default': {
-#         'NAME': 'bridals',
-#         'ENGINE': 'django.db.backends.mysql',
-#         'HOST': '127.0.0.1',
-#         'PORT': 3306,
-#         'USER': 'modestdailyfashion@username',
-#         'PASSWORD': 'modest_daily_fashion$$$',
-        
 
-#     }
-# }
 
 
 # Password validation
@@ -226,17 +224,6 @@ SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
     ('link', 'profile_url'),
 ]
 
-    # For instargram 
-    # add this code
-    # SOCIALACCOUNT_PROVIDERS = {
-    #     'instagram': {
-    #         'client_id': '971486731483904',
-    #         'client_secret': 'Ybe6c158cc41224304bf3784971f82872',
-    #         'redirect_uri': 'www.instagram.com',
-    #         'scope': ['email', 'profile', 'pages_show_list'],
-    #      
-    #     }
-    # }
 
 SOCIAL_AUTH_INSTAGRAM_KEY = os.environ.get('SOCIAL_AUTH_INSTAGRAM_KEY')        #Client ID
 SOCIAL_AUTH_INSTAGRAM_SECRET = os.environ.get('SOCIAL_AUTH_INSTAGRAM_SECRET')  #Client SECRET
