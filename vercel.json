@@ -1,11 +1,12 @@
 {
+  "version": 2,
   "buildCommand": "python manage.py collectstatic --noinput",
-  "outputDirectory": "staticfiles",
-  "functions": {
-    "your_project_name/wsgi.py": {
-      "runtime": "python3.12"
+  "builds": [
+    {
+      "src": "bridal_app/wsgi.py",
+      "use": "@vercel/python@latest"
     }
-  },
+  ],
   "routes": [
     {
       "src": "/static/(.*)",
