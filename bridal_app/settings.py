@@ -243,19 +243,12 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-# This is your source static folder:
-# bridal_app/static/
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-# collectstatic will copy files here
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-# Important:
-# Use CompressedStaticFilesStorage for now, not Manifest storage.
-# Manifest storage crashes when a template references a missing file like:
-# {% static 'assets/img/favicon.png' %}
 STORAGES = {
     "default": {
         "BACKEND": "django.core.files.storage.FileSystemStorage",
