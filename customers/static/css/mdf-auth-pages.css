@@ -43,8 +43,8 @@
   padding: 64px 48px;
   color: #fff;
   background:
-    linear-gradient(145deg, rgba(66, 24, 52, 0.94), rgba(94, 43, 75, 0.94)),
-    url("../img/auth-pattern.jpg");
+    linear-gradient(145deg, rgba(66, 24, 52, 0.94), rgba(94, 43, 75, 0.94));
+    
   background-size: cover;
   background-position: center;
   overflow: hidden;

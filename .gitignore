@@ -1,31 +1,29 @@
+# Environment
 .env
-# Python
-__pycache__/
-*.py[cod]
-*.pyo
-*.pyd
-
-# Virtual environment
-venv/
-env/
-app_env/
-.env
+bridal_app/.env
 
 # Database
 db.sqlite3
 
-# Static/media output
-staticfiles/
-media/
-
-# OS/editor
-.DS_Store
-Thumbs.db
-.vscode/
-.idea/
-
-# Logs
-*.log
-
+# Keys
+*.pem
 private_key.pem
 public_key.pem
+
+# Virtual environment
+app_env/
+venv/
+env/
+
+# Cache
+__pycache__/
+*.pyc
+
+# Collected static output
+staticfiles/
+
+# Editor/system
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
