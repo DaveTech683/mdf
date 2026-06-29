@@ -1,0 +1,304 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}{{ product.name }} — Modest Daily Fashion{% endblock %}
+
+{% block contents %}
+<link rel="stylesheet" href="{% static 'css/mdf_commerce_pages.css' %}">
+
+<style>
+  /* ── Color / Size pickers ── */
+  #mdf-commerce-product-page .mdf-commerce-product-option-row {
+    margin-bottom: 1.1rem;
+  }
+  #mdf-commerce-product-page .mdf-commerce-product-option-row label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  #mdf-commerce-product-page .mdf-commerce-product-option-row select {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background: #fff;
+  }
+  #mdf-commerce-product-page .mdf-commerce-product-option-missing {
+    font-size: 0.85rem;
+    color: #888;
+    font-style: italic;
+  }
+
+  /* ── Add-to-cart button states ── */
+  .mdf-commerce-product-add-btn {
+    position: relative;
+    overflow: hidden;
+    transition:
+      background 0.28s ease,
+      transform 0.2s ease,
+      box-shadow 0.28s ease,
+      opacity 0.28s ease;
+  }
+
+  /* Loading state — spinner replaces text */
+  .mdf-commerce-product-add-btn.mdf-btn--loading {
+    pointer-events: none;
+    opacity: 0.82;
+  }
+  .mdf-commerce-product-add-btn.mdf-btn--loading .mdf-btn-label {
+    opacity: 0;
+  }
+  .mdf-commerce-product-add-btn.mdf-btn--loading::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 20px;
+    height: 20px;
+    border: 2.5px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: mdf-spin-btn 0.7s linear infinite;
+  }
+  @keyframes mdf-spin-btn {
+    to { transform: rotate(360deg); }
+  }
+
+  /* Success state — brief green flash before redirect */
+  .mdf-commerce-product-add-btn.mdf-btn--success {
+    pointer-events: none;
+    background: var(--mdf-success, #5C7A52) !important;
+  }
+  .mdf-commerce-product-add-btn.mdf-btn--success::after {
+    content: none;
+  }
+  .mdf-commerce-product-add-btn.mdf-btn--success .mdf-btn-label {
+    opacity: 1;
+  }
+</style>
+
+<main class="main mdf-commerce-page" id="mdf-commerce-product-page">
+
+  <section class="mdf-commerce-hero">
+    <div class="mdf-commerce-container">
+      <span class="mdf-commerce-eyebrow"><i class="bi bi-stars"></i> Product Info</span>
+      <h1>{{ product.name }}</h1>
+      <p>View product details, choose your quantity, and add this piece to your cart.</p>
+    </div>
+  </section>
+
+  <section class="mdf-commerce-container">
+
+    <div class="mdf-commerce-product-layout">
+
+      <div class="mdf-commerce-card mdf-commerce-product-media" data-aos="fade-up" data-aos-delay="100">
+        <div class="mdf-commerce-product-image-wrap">
+          <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        </div>
+      </div>
+
+      <article class="mdf-commerce-card mdf-commerce-product-info" data-aos="fade-left" data-aos-delay="160">
+
+        <span class="mdf-commerce-product-category-label">Modest Daily Fashion</span>
+        <h2 class="mdf-commerce-product-name">{{ product.name }}</h2>
+        <p class="mdf-commerce-product-price">₦{{ product.price }}</p>
+
+        <div class="mdf-commerce-product-meta-grid">
+          <div class="mdf-commerce-product-meta-card">
+            <span>Feature</span>
+            <strong>{{ product.feature }}</strong>
+          </div>
+          <div class="mdf-commerce-product-meta-card">
+            <span>Product ID</span>
+            <strong>#{{ product.product_id }}</strong>
+          </div>
+        </div>
+
+        <p class="mdf-commerce-product-description">{{ product.description }}</p>
+
+        <form class="mdf-commerce-product-form" method="POST">
+          {% csrf_token %}
+
+          {% if product.colors.all %}
+          <div class="mdf-commerce-product-option-row">
+            <label for="mdf-commerce-product-color">Color</label>
+            <select id="mdf-commerce-product-color" name="product_color" required>
+              {% for color in product.colors.all %}
+                <option value="{{ color.id }}">{{ color.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          {% else %}
+          <p class="mdf-commerce-product-option-missing">No color options for this item.</p>
+          {% endif %}
+
+          {% if product.sizes.all %}
+          <div class="mdf-commerce-product-option-row">
+            <label for="mdf-commerce-product-size">Size</label>
+            <select id="mdf-commerce-product-size" name="product_size" required>
+              {% for size in product.sizes.all %}
+                <option value="{{ size.id }}">{{ size.name }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          {% else %}
+          <p class="mdf-commerce-product-option-missing">No size options for this item.</p>
+          {% endif %}
+
+          <div class="mdf-commerce-product-qty-row">
+            <label for="mdf-commerce-product-qty">Product Quantity:</label>
+            <div class="mdf-commerce-product-qty-control">
+              <button class="mdf-commerce-product-qty-btn" id="mdf-commerce-product-dec" type="button" aria-label="Decrease quantity">&minus;</button>
+              <span class="mdf-commerce-product-qty-value" id="mdf-commerce-product-qty">1</span>
+              <button class="mdf-commerce-product-qty-btn" id="mdf-commerce-product-inc" type="button" aria-label="Increase quantity">+</button>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            class="mdf-commerce-product-add-btn"
+            id="mdf-commerce-add-cart"
+            value="{{ product.product_id }}"
+            aria-live="polite">
+            <span class="mdf-btn-label">Add To Cart</span>
+          </button>
+
+        </form>
+
+        <div class="mdf-commerce-delivery-box">
+          <h3>Delivery Method</h3>
+          <p>Modest Daily Fashion partners with trusted logistics options to help deliver your order faster and more safely.</p>
+          <ul class="mdf-commerce-delivery-list">
+            <li>GIG Logistics</li>
+            <li>DHL Logistics</li>
+            <li>Transport Riders</li>
+          </ul>
+        </div>
+
+      </article>
+    </div>
+
+    <section class="mdf-commerce-card mdf-commerce-similar-section" data-aos="fade-up" data-aos-delay="220">
+      <div class="mdf-commerce-section-head">
+        <div>
+          <span class="mdf-commerce-eyebrow"><i class="bi bi-bag-heart"></i> You may also like</span>
+          <h2>Similar Products</h2>
+        </div>
+        <a href="{% url 'categories' 'Earrings' %}" class="mdf-commerce-btn-outline">See All Collections</a>
+      </div>
+
+      {% if random_products %}
+      <div class="mdf-commerce-similar-grid">
+        {% for prods in random_products|slice:":4" %}
+          <a href="{% url 'product' prods.product_id %}" class="mdf-commerce-similar-card">
+            <img src="{{ prods.image.url }}" alt="{{ prods.name }}">
+            <h3>{{ prods.name|truncatechars:35 }}</h3>
+            <p>₦{{ prods.price }}</p>
+          </a>
+        {% endfor %}
+      </div>
+      {% else %}
+        <div class="mdf-commerce-empty-cart">
+          <i class="bi bi-bag-heart"></i>
+          <h2>No similar products yet</h2>
+          <p>Explore our collections to discover more beautiful pieces.</p>
+          <a href="{% url 'categories' 'Earrings' %}" class="mdf-commerce-btn">Browse Collections</a>
+        </div>
+      {% endif %}
+    </section>
+
+    <div class="mdf-commerce-more-row">
+      <p>Want to see more of our collections and products?</p>
+      <a href="{% url 'categories' 'Earrings' %}" class="mdf-commerce-more-link">See All Collections</a>
+    </div>
+
+  </section>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  /* ── Quantity controls ── */
+  const mdfQtyEl  = document.getElementById('mdf-commerce-product-qty');
+  const mdfIncBtn = document.getElementById('mdf-commerce-product-inc');
+  const mdfDecBtn = document.getElementById('mdf-commerce-product-dec');
+  let mdfQty = 1;
+
+  if (mdfIncBtn && mdfQtyEl) {
+    mdfIncBtn.addEventListener('click', function () {
+      mdfQty += 1;
+      mdfQtyEl.textContent = mdfQty;
+    });
+  }
+
+  if (mdfDecBtn && mdfQtyEl) {
+    mdfDecBtn.addEventListener('click', function () {
+      mdfQty = Math.max(1, mdfQty - 1);
+      mdfQtyEl.textContent = mdfQty;
+    });
+  }
+
+  /* ── Add to cart → redirect ── */
+  if (typeof $ !== 'undefined') {
+    $(document).on('click', '#mdf-commerce-add-cart', function (e) {
+      e.preventDefault();
+
+      const $btn = $(this);
+
+      /* 1. Loading state */
+      $btn.addClass('mdf-btn--loading');
+      $btn.find('.mdf-btn-label').text('Adding…');
+
+      const selectedColor = $('#mdf-commerce-product-color').length
+        ? $('#mdf-commerce-product-color').val() : '';
+      const selectedSize = $('#mdf-commerce-product-size').length
+        ? $('#mdf-commerce-product-size').val() : '';
+
+      $.ajax({
+        type: 'POST',
+        url: "{% url 'cart_add' %}",
+        data: {
+          product_id:    $btn.val(),
+          product_qty:   mdfQtyEl ? mdfQtyEl.textContent : 1,
+          product_color: selectedColor,
+          product_size:  selectedSize,
+          csrfmiddlewaretoken: '{{ csrf_token }}',
+          action: 'post'
+        },
+
+        success: function (json) {
+          /* 2. Brief success flash on the button */
+          $btn.removeClass('mdf-btn--loading').addClass('mdf-btn--success');
+          $btn.find('.mdf-btn-label').text('Added! Going to cart…');
+
+          /* 3. Update header cart count if present */
+          const cartQty = document.getElementById('cart-quantity');
+          if (cartQty && json.qty !== undefined) {
+            cartQty.textContent = json.qty;
+          }
+
+          /* 4. Redirect to cart after a short pause so the state is visible */
+          setTimeout(function () {
+            window.location.href = "{% url 'cart' %}";
+          }, 700);
+        },
+
+        error: function (xhr, errmsg, err) {
+          /* Restore button on failure and show a brief error label */
+          $btn.removeClass('mdf-btn--loading');
+          $btn.find('.mdf-btn-label').text('Failed — try again');
+          setTimeout(function () {
+            $btn.find('.mdf-btn-label').text('Add To Cart');
+          }, 2500);
+          console.error('Add to cart failed:', errmsg || err);
+        }
+      });
+    });
+  }
+</script>
+{% endblock %}

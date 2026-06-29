@@ -1,0 +1,409 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Shopping Cart — Modest Daily Fashion{% endblock %}
+
+{% block contents %}
+<link rel="stylesheet" href="{% static 'css/mdf-cart-page.css' %}">
+
+<main class="main">
+  <section class="mdf-cart-page" id="mdf-cart-page">
+    <div class="mdf-cart-shell">
+
+      <div class="mdf-cart-hero" data-aos="fade-up">
+        <div>
+          <span class="mdf-cart-eyebrow">Your Selection</span>
+          <h1>Shopping Cart</h1>
+          <p>Review your pieces, confirm quantities, and continue to checkout when you are ready.</p>
+        </div>
+        <div class="mdf-cart-hero-badge" aria-hidden="true">
+          <i class="bi bi-bag-heart"></i>
+        </div>
+      </div>
+
+      {% if cart_items %}
+      <div class="mdf-cart-layout" data-aos="fade-up" data-aos-delay="100">
+
+        <section class="mdf-cart-items-card" aria-labelledby="mdf-cart-items-heading">
+          <div class="mdf-cart-section-head">
+            <div class="mdf-cart-section-title">
+              <span class="mdf-cart-mini-label">Cart Items</span>
+              <h2 id="mdf-cart-items-heading">Your chosen products</h2>
+            </div>
+            <span class="mdf-cart-count">
+              {{ cart_count }} item{% if cart_count != 1 %}s{% endif %}
+            </span>
+          </div>
+
+          <div class="mdf-cart-table-wrap">
+            <table class="mdf-cart-table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Color</th>
+                  <th>Size</th>
+                  <th>Qty</th>
+                  <th>Price</th>
+                  <th><span class="visually-hidden">Remove</span></th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {% for item in cart_items %}
+                <tr class="mdf-cart-table-row" data-cart-row-product-id="{{ item.product.product_id }}">
+                  <td>
+                    <div class="mdf-cart-product-cell">
+                      <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" loading="lazy">
+                      <div>
+                        <h3>{{ item.product.name }}</h3>
+                        <p>#{{ item.product.product_id }}</p>
+                      </div>
+                    </div>
+                  </td>
+
+                  <td>{{ item.product.color }}</td>
+                  <td>{{ item.product.size }}</td>
+
+                  <td>
+                    <div class="mdf-cart-qty-control" data-product-id="{{ item.product.product_id }}">
+                      <button
+                        type="button"
+                        class="mdf-cart-qty-btn dec"
+                        data-action="decrement"
+                        aria-label="Reduce quantity"
+                      >
+                        &minus;
+                      </button>
+
+                      <span class="mdf-cart-qty-value qty-display">{{ item.quantity }}</span>
+
+                      <button
+                        type="button"
+                        class="mdf-cart-qty-btn inc"
+                        data-action="increment"
+                        aria-label="Increase quantity"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </td>
+
+                  <td class="mdf-cart-price">
+                    <span class="mdf-cart-line-total" data-product-id="{{ item.product.product_id }}">
+                      ₦{{ item.subtotal }}
+                    </span>
+                    <span class="mdf-cart-unit-price">₦{{ item.unit_price }} each</span>
+                  </td>
+
+                  <td>
+                    <button
+                      type="button"
+                      class="mdf-cart-remove-btn delete-cart"
+                      data-product-id="{{ item.product.product_id }}"
+                      aria-label="Remove {{ item.product.name }} from cart"
+                    >
+                      <i class="bi bi-x-lg"></i>
+                    </button>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="mdf-cart-mobile-list">
+            {% for item in cart_items %}
+            <article class="mdf-cart-mobile-item" data-cart-row-product-id="{{ item.product.product_id }}">
+              <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" loading="lazy">
+
+              <div class="mdf-cart-mobile-info">
+                <div class="mdf-cart-mobile-topline">
+                  <h3>{{ item.product.name }}</h3>
+
+                  <button
+                    type="button"
+                    class="mdf-cart-remove-btn delete-cart"
+                    data-product-id="{{ item.product.product_id }}"
+                    aria-label="Remove {{ item.product.name }} from cart"
+                  >
+                    <i class="bi bi-x-lg"></i>
+                  </button>
+                </div>
+
+                <p class="mdf-cart-mobile-meta">
+                  Color: {{ item.product.color }} · Size: {{ item.product.size }}
+                </p>
+
+                <div class="mdf-cart-mobile-bottom">
+                  <div class="mdf-cart-qty-control" data-product-id="{{ item.product.product_id }}">
+                    <button
+                      type="button"
+                      class="mdf-cart-qty-btn dec"
+                      data-action="decrement"
+                      aria-label="Reduce quantity"
+                    >
+                      &minus;
+                    </button>
+
+                    <span class="mdf-cart-qty-value qty-display">{{ item.quantity }}</span>
+
+                    <button
+                      type="button"
+                      class="mdf-cart-qty-btn inc"
+                      data-action="increment"
+                      aria-label="Increase quantity"
+                    >
+                      +
+                    </button>
+                  </div>
+
+                  <strong class="mdf-cart-line-total" data-product-id="{{ item.product.product_id }}">
+                    ₦{{ item.subtotal }}
+                  </strong>
+                </div>
+              </div>
+            </article>
+            {% endfor %}
+          </div>
+        </section>
+
+        <aside class="mdf-cart-summary-card" aria-labelledby="mdf-cart-summary-heading">
+          <span class="mdf-cart-mini-label">Order Summary</span>
+          <h2 id="mdf-cart-summary-heading">Cart total</h2>
+
+          <div class="mdf-cart-total-box">
+            <span>Total Cost</span>
+            <strong id="mdf-cart-total">₦{{ totals }}</strong>
+          </div>
+
+          <div class="mdf-cart-summary-note">
+            <i class="bi bi-truck"></i>
+            <p>Delivery details will be confirmed on the next step before payment.</p>
+          </div>
+
+          <div class="mdf-cart-actions">
+            <a class="mdf-cart-secondary-btn" onclick="history.go(-1); return false;" href="#">
+              Continue Shopping
+            </a>
+
+            {% if user.is_authenticated %}
+              <a class="mdf-cart-primary-btn" href="{% url 'shipping' %}">Checkout</a>
+            {% else %}
+              <a class="mdf-cart-primary-btn" href="{% url 'signin' %}">Checkout</a>
+            {% endif %}
+          </div>
+        </aside>
+      </div>
+
+      {% else %}
+      <div class="mdf-cart-empty" data-aos="fade-up">
+        <div class="mdf-cart-empty-icon">
+          <i class="bi bi-bag-x"></i>
+        </div>
+
+        <h2>Your cart is empty</h2>
+
+        <p>
+          You have not added any product yet. Browse the collections and pick something beautiful for your next look.
+        </p>
+
+        <a href="{% url 'categories' 'rings' %}" class="mdf-cart-primary-btn">
+          Browse Collections
+        </a>
+      </div>
+      {% endif %}
+
+    </div>
+  </section>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  const csrfToken = '{{ csrf_token }}';
+
+  function formatNaira(value) {
+    return '₦' + Number(value || 0).toLocaleString();
+  }
+
+  function setControlBusy(control, busy) {
+    if (!control) return;
+
+    control.classList.toggle('is-updating', busy);
+
+    control.querySelectorAll('button').forEach(function (btn) {
+      btn.disabled = busy;
+    });
+  }
+
+  function updateCartBadges(cartCount) {
+    cartCount = Number(cartCount || 0);
+
+    const countText = cartCount + ' item' + (cartCount !== 1 ? 's' : '');
+
+    const countEl = document.querySelector('.mdf-cart-count');
+
+    if (countEl) {
+      countEl.textContent = countText;
+    }
+
+    document.querySelectorAll(
+      '#cart_quantity, #cart-count, .cart-count, .cart_quantity, .cart-quantity'
+    ).forEach(function (el) {
+      el.textContent = cartCount;
+    });
+  }
+
+  function updateCartTotal(cartTotal) {
+    const totalEl = document.getElementById('mdf-cart-total');
+
+    if (totalEl) {
+      totalEl.textContent = formatNaira(cartTotal);
+    }
+
+    document.querySelectorAll(
+      '#checkout-cart-total, .checkout-cart-total, .order-cart-total'
+    ).forEach(function (el) {
+      el.textContent = formatNaira(cartTotal);
+    });
+  }
+
+  function removeProductFromPage(productId) {
+    document.querySelectorAll('[data-cart-row-product-id="' + productId + '"]').forEach(function (row) {
+      row.remove();
+    });
+
+    document.querySelectorAll('.mdf-cart-qty-control[data-product-id="' + productId + '"]').forEach(function (control) {
+      const tableRow = control.closest('tr');
+      const mobileItem = control.closest('.mdf-cart-mobile-item');
+
+      if (tableRow) {
+        tableRow.remove();
+      }
+
+      if (mobileItem) {
+        mobileItem.remove();
+      }
+    });
+  }
+
+  function reloadIfCartIsEmpty(cartCount) {
+    if (Number(cartCount || 0) < 1) {
+      location.reload();
+    }
+  }
+
+  function parseJsonResponse(response) {
+    return response.json().then(function (data) {
+      if (!response.ok) {
+        throw new Error(data.error || 'Request failed');
+      }
+
+      return data;
+    });
+  }
+
+  // Increment / decrement quantity buttons
+  document.addEventListener('click', function (e) {
+    const btn = e.target.closest('.mdf-cart-qty-btn');
+
+    if (!btn || btn.disabled) return;
+
+    const control = btn.closest('.mdf-cart-qty-control');
+
+    if (!control) return;
+
+    const productId = control.dataset.productId;
+    const action = btn.dataset.action;
+
+    if (!productId || !action) return;
+
+    document.querySelectorAll('.mdf-cart-qty-control[data-product-id="' + productId + '"]').forEach(function (c) {
+      setControlBusy(c, true);
+    });
+
+    fetch("{% url 'cart_update' %}", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'X-CSRFToken': csrfToken
+      },
+      body: new URLSearchParams({
+        product_id: productId,
+        action: action,
+        csrfmiddlewaretoken: csrfToken
+      })
+    })
+      .then(parseJsonResponse)
+      .then(function (data) {
+        if (data.removed) {
+          removeProductFromPage(productId);
+        } else {
+          document.querySelectorAll('.mdf-cart-qty-control[data-product-id="' + productId + '"]').forEach(function (c) {
+            const qtyEl = c.querySelector('.qty-display');
+
+            if (qtyEl) {
+              qtyEl.textContent = data.quantity;
+            }
+
+            setControlBusy(c, false);
+          });
+
+          document.querySelectorAll('.mdf-cart-line-total[data-product-id="' + productId + '"]').forEach(function (el) {
+            el.textContent = formatNaira(data.item_subtotal);
+          });
+        }
+
+        updateCartTotal(data.cart_total);
+        updateCartBadges(data.cart_count);
+        reloadIfCartIsEmpty(data.cart_count);
+      })
+      .catch(function (error) {
+        document.querySelectorAll('.mdf-cart-qty-control[data-product-id="' + productId + '"]').forEach(function (c) {
+          setControlBusy(c, false);
+        });
+
+        alert(error.message || 'Unable to update quantity. Please try again.');
+      });
+  });
+
+  // Delete item buttons
+  document.addEventListener('click', function (e) {
+    const btn = e.target.closest('.delete-cart');
+
+    if (!btn || btn.disabled) return;
+
+    const productId = btn.dataset.productId || btn.dataset.index;
+
+    if (!productId) return;
+
+    btn.disabled = true;
+
+    fetch("{% url 'cart_delete' %}", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'X-CSRFToken': csrfToken
+      },
+      body: new URLSearchParams({
+        product_id: productId,
+        action: 'post',
+        csrfmiddlewaretoken: csrfToken
+      })
+    })
+      .then(parseJsonResponse)
+      .then(function (data) {
+        removeProductFromPage(productId);
+        updateCartTotal(data.cart_total);
+        updateCartBadges(data.cart_count);
+        reloadIfCartIsEmpty(data.cart_count);
+      })
+      .catch(function (error) {
+        btn.disabled = false;
+        alert(error.message || 'Unable to remove this item. Please try again.');
+      });
+  });
+});
+</script>
+{% endblock %}

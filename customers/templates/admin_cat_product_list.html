@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Admin Products — Modest Daily Fashion{% endblock %}
+
+{% block contents %}
+
+<link rel="stylesheet" href="{% static 'css/mdf-admin-pages.css' %}">
+
+<main class="main">
+  <section class="mdf-admin-page" id="mdf-admin-products-page">
+    <div class="mdf-admin-container">
+
+      <div class="mdf-admin-hero" data-aos="fade-up">
+        <div>
+          <span class="mdf-admin-kicker">Inventory</span>
+          <h1 class="mdf-admin-title">Products</h1>
+          <p class="mdf-admin-subtitle">
+            Review products in this category and remove unavailable or outdated items from the store.
+          </p>
+        </div>
+
+        <div class="mdf-admin-stat-card">
+          <span>Total Products</span>
+          <strong>{{ products|length }}</strong>
+        </div>
+      </div>
+
+      <div class="mdf-admin-panel" data-aos="fade-up" data-aos-delay="100">
+        <div class="mdf-admin-panel-header">
+          <div>
+            <h2>Product List</h2>
+            <p>Manage products attached to the selected category.</p>
+          </div>
+          <div class="mdf-admin-panel-icon">
+            <i class="bi bi-box-seam"></i>
+          </div>
+        </div>
+
+        {% if products %}
+          <div class="mdf-admin-table-wrap">
+            <table class="mdf-admin-table">
+              <thead>
+                <tr>
+                  <th scope="col">Product ID</th>
+                  <th scope="col">Product Name</th>
+                  <th scope="col">Product Price</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {% for product in products %}
+                  <tr>
+                    <td>
+                      <span class="mdf-admin-id-pill">
+                        <i class="bi bi-hash"></i>
+                        {{ product.product_id }}
+                      </span>
+                    </td>
+                    <td>{{ product.name }}</td>
+                    <td class="mdf-admin-price">₦{{ product.price }}</td>
+                    <td>
+                      <form method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="num" value="{{ product.product_id }}">
+                        <button type="submit" class="mdf-admin-danger-btn">
+                          <i class="bi bi-trash"></i>
+                          Delete Product
+                        </button>
+                      </form>
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <div class="mdf-admin-empty-state">
+            <i class="bi bi-box"></i>
+            <h3>No products found</h3>
+            <p>There are no products under this category yet.</p>
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script src="{% static 'js/main.js' %}"></script>
+
+{% endblock %}

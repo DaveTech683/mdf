@@ -1,0 +1,32 @@
+<nav id="navmenu" class="navmenu">
+  {% if user.is_authenticated %}
+  <ul>
+    <li><a style="font-size: 1rem;" href="{% url 'home'%}" class=""></i>Home</a></li>
+    <li><a style="font-size: 1rem;" href="{% url 'about'%}"></i>About</a></li>
+    <li><a style="font-size: 1rem; " href="{% url 'categories' 'rings'%}"></i>Categories</a></li>
+
+    
+    {% if user.is_superuser %}
+                      
+    <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        My Orders
+      </a>
+      <ul class="dropdown-menu">
+        <li><a class="dropdown-item" href="{% url 'shipped_dash' %}">Shipped Orders</a></li>
+        <li><a class="dropdown-item" href="{% url 'not_shipped_dash' %}">Not Shipped Orders</a></li>
+      </ul>
+    </li>
+    {% endif %}
+    <li><a style="font-size: 1rem;" href="#contact"></i>Contact Us</a></li>
+  </ul>
+  {% else %}
+  <ul>
+    <li><a style="font-size: 1rem;" href="{% url 'home'%}" class=""></i>Home</a></li>
+    <li><a style="font-size: 1rem;" href="{% url 'about'%}"></i>About</a></li>
+    <li><a style="font-size: 1rem; " href="{% url 'categories' 'rings'%}"></i>Categories</a></li>
+    <li><a style="font-size: 1rem;" href="#contact"></i>Contact Us</a></li>              
+  </ul>
+  {% endif %}
+  <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+</nav>

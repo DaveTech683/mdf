@@ -1,0 +1,685 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Modest Daily Fashion | Bridal & Wedding Essentials{% endblock %}
+
+{% block contents %}
+
+<main class="main">
+
+  <!-- ═══════════════════════════════════════════════════════════
+       HERO SECTION
+  ══════════════════════════════════════════════════════════════ -->
+  <section id="hero" class="hero section">
+    <div class="container">
+
+      <!-- ── Desktop hero: dark split-layout ── -->
+      <div class="mdf-hero-desktop-row" id="hero-contents">
+
+        <!-- Left: text column -->
+        <div class="mdf-hero-text" data-aos="fade-right">
+          <span class="mdf-hero-eyebrow">Bridal &amp; Wedding Essentials</span>
+          <h1 class="mdf-hero-headline">Where Every Bride Finds Her Elegance</h1>
+          <span class="mdf-hero-rule"></span>
+          <p class="mdf-hero-body">The one-stop shop for all your bridal needs. A sophisticated selection of essentials for brides, bridesmaids &amp; the entire wedding party.</p>
+          <div class="mdf-hero-btns">
+            <a href="{% url 'categories' 'Earrings' %}" class="btn-get-started">Shop the Collection</a>
+            <a href="{% url 'contact' %}" class="mdf-hero-ghost-link">Contact Us</a>
+          </div>
+        </div>
+
+        <!-- Right: image swiper -->
+        <div class="mdf-hero-img-col" data-aos="fade-left" data-aos-delay="150">
+          <div class="mdf-hero-img-wrap">
+
+            <div class="swiper mdf-swiper-hero">
+              <div class="swiper-wrapper">
+
+                <div class="swiper-slide">
+                  <div class="mdf-hero-slide-img">
+                    <img src="{% static 'img/imaging/home_1.jpg' %}" alt="Bridal collection — Modest Daily Fashion">
+                  </div>
+                </div>
+
+                <div class="swiper-slide">
+                  <div class="mdf-hero-slide-img">
+                    <img src="{% static 'img/imaging/home_2.jpg' %}" alt="Bridal lookbook — Modest Daily Fashion">
+                  </div>
+                </div>
+
+                <div class="swiper-slide">
+                  <div class="mdf-hero-slide-img">
+                    <img src="{% static 'img/imaging/home_3.png' %}" alt="Bridal elegance — Modest Daily Fashion">
+                  </div>
+                </div>
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+
+            <!-- Floating badge -->
+            <div class="mdf-hero-badge" aria-hidden="true">
+              <i class="bi bi-heart-fill"></i>
+              <span>500+ Happy Brides</span>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ── Mobile hero: full-bleed bg-image slides ── -->
+      <div class="mdf-mobile-hero">
+        <div class="swiper mdf-swiper-mobile-hero">
+          <div class="swiper-wrapper">
+
+            <!-- Slide 1 -->
+            <div class="swiper-slide">
+              <div class="mdf-mhero-slide">
+                <div class="mdf-mhero-bg"><img src="{% static 'img/imaging/home_1.jpg' %}" alt="" aria-hidden="true" class="mdf-mhero-bg-img"></div>
+                <div class="mdf-mhero-overlay"></div>
+                <div class="mdf-mhero-content">
+                  <span class="mdf-mhero-eyebrow">Bridal &amp; Wedding Essentials</span>
+                  <h2 class="mdf-mhero-headline">Modest Daily Fashion</h2>
+                  <p class="mdf-mhero-body">The one-stop shop for all your bridal needs. A sophisticated selection of essentials for brides, bridesmaids &amp; the entire wedding party.</p>
+                  <a href="{% url 'categories' 'Earrings' %}" class="btn-get-started">Shop Now</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="swiper-slide">
+              <div class="mdf-mhero-slide">
+                <div class="mdf-mhero-bg"><img src="{% static 'img/imaging/home_2.jpg' %}" alt="" aria-hidden="true" class="mdf-mhero-bg-img"></div>
+                <div class="mdf-mhero-overlay"></div>
+                <div class="mdf-mhero-content">
+                  <span class="mdf-mhero-eyebrow">Your Everything, All In One</span>
+                  <h2 class="mdf-mhero-headline">Your Biggest Day Deserves the Best</h2>
+                  <p class="mdf-mhero-body">Curated pieces that make every moment of your wedding celebration feel effortlessly elegant.</p>
+                  <a href="{% url 'categories' 'Earrings' %}" class="btn-get-started">Explore Now</a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="swiper-slide">
+              <div class="mdf-mhero-slide">
+                <div class="mdf-mhero-bg"><img src="{% static 'img/imaging/home_3.png' %}" alt="" aria-hidden="true" class="mdf-mhero-bg-img"></div>
+                <div class="mdf-mhero-overlay"></div>
+                <div class="mdf-mhero-content">
+                  <span class="mdf-mhero-eyebrow">Highest Standards</span>
+                  <h2 class="mdf-mhero-headline">Give Your Biggest Day Its Biggest Moment</h2>
+                  <p class="mdf-mhero-body">Let's make it the biggest memory, of the highest standard. Explore Modest Daily Fashion.</p>
+                  <a href="{% url 'categories' 'Earrings' %}" class="btn-get-started">Discover More</a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <div class="swiper-pagination mdf-mhero-dots"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       OUR PRODUCTS — single swiper, 4-col desktop / 2-col mobile
+  ══════════════════════════════════════════════════════════════ -->
+  <section id="our-product" class="section">
+
+    <div class="product-section-title" data-aos="fade-up">
+      <div class="product-section-subtitle">
+        <h4>Our Products In Display</h4>
+      </div>
+      <div class="product-section-subtitle-btn">
+        <div id="navmenu-our-product" class="navmenu">
+          <ul>
+            <li><a href="javascript:void(0)" class="active"  onclick="changeCategory(this, shoeslide)">Shoes</a></li>
+            <li><a href="javascript:void(0)"                 onclick="changeCategory(this, accessoryslide)">Accessories</a></li>
+            <li><a href="javascript:void(0)"                 onclick="changeCategory(this, bouquetslide)">Bouquets</a></li>
+            <li><a href="javascript:void(0)"                 onclick="changeCategory(this, purseslide)">Clutch Purses</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- ONE swiper — CSS handles 4-col vs 2-col via media query only -->
+      <div class="swiper mdf-swiper-products" data-aos="fade-up" data-aos-delay="100">
+        <div class="swiper-wrapper">
+
+          <div class="swiper-slide">
+            <div class="our-product-item-desktop">
+              <img data-product-img="0"  src="" alt="Product">
+              <img data-product-img="1"  src="" alt="Product">
+              <img data-product-img="2"  src="" alt="Product">
+              <img data-product-img="3"  src="" alt="Product">
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="our-product-item-desktop">
+              <img data-product-img="4"  src="" alt="Product">
+              <img data-product-img="5"  src="" alt="Product">
+              <img data-product-img="6"  src="" alt="Product">
+              <img data-product-img="7"  src="" alt="Product">
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="our-product-item-desktop">
+              <img data-product-img="8"  src="" alt="Product">
+              <img data-product-img="9"  src="" alt="Product">
+              <img data-product-img="10" src="" alt="Product">
+              <img data-product-img="11" src="" alt="Product">
+            </div>
+          </div>
+
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       WHY US
+  ══════════════════════════════════════════════════════════════ -->
+  <section id="why-us" class="section why-us">
+    <div class="container">
+
+      <div class="content" data-aos="fade-up">
+        <img src="{% static 'img/pngwing.png' %}" alt="">
+        <h4>Why You Should Choose Us</h4>
+      </div>
+
+      <div class="why-container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="why-content">
+          <img src="{% static 'img/star-badge_11341457.png' %}" alt="">
+          <h4>Finest Qualities</h4>
+          <p>We sell quality products as part of our ethics — we offer only the very best.</p>
+        </div>
+
+        <div class="why-content">
+          <img src="{% static 'img/Free Shipping.png' %}" alt="">
+          <h4>Shipping Everywhere</h4>
+          <p>Your order can be shipped anywhere — distance is never a barrier. Terms &amp; conditions apply.</p>
+        </div>
+
+        <div class="why-content">
+          <img src="{% static 'img/Payments.png' %}" alt="">
+          <h4>Easy Payments</h4>
+          <p>All payments are processed instantly over a secured payment protocol.</p>
+        </div>
+
+        <div class="why-content">
+          <img src="{% static 'img/tracking_12746783.png' %}" alt="">
+          <h4>Order Tracking</h4>
+          <p>We help you track your order to ensure safe, on-time delivery.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       OUR COLLECTIONS GRID
+  ══════════════════════════════════════════════════════════════ -->
+  <section id="product" class="product section">
+
+    <div class="section-title" data-aos="fade-up">
+      <img src="{% static 'img/pngwing.png' %}" alt="">
+      <h4>Our Collections</h4>
+    </div>
+
+    <div class="container">
+      <div class="mdf-collection-grid" data-random-collection data-random-limit="9">
+        {% for product in products %}
+          <div class="mdf-collection-card" data-aos="fade-up" data-aos-delay="100">
+            <div class="product-item">
+              <img src="{{ product.image.url }}" alt="{{ product.name }}" loading="lazy">
+              <div class="txt">
+                <p>{{ product.name|truncatechars:20 }}</p>
+                {% if product.is_sale %}
+                  <p class="mdf-product-soldout"><strike>₦{{ product.price }}</strike> Sold Out</p>
+                {% elif product.sale_price > 0 %}
+                  <p><strike>₦{{ product.price }}</strike> ₦{{ product.sale_price }}</p>
+                {% else %}
+                  <p>₦{{ product.price }}</p>
+                {% endif %}
+                <a href="{% url 'product' product.product_id %}">Buy Now</a>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       HAPPY CLIENTS
+  ══════════════════════════════════════════════════════════════ -->
+  <section id="client" class="section">
+
+    <div class="client-title" data-aos="fade-up">
+      <div class="client-subtitle">
+        <img src="{% static 'img/pngwing.png' %}" alt="">
+        <h4>Happy Clients</h4>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="swiper mdf-swiper-clients" data-aos="fade-up" data-aos-delay="100">
+        <div class="swiper-wrapper">
+
+          <div class="swiper-slide">
+            <div class="client-item-desktop">
+              <img src="{% static 'img/wed-1.jpg' %}"               loading="lazy" alt="Happy client">
+              <img src="{% static 'img/CLIENT-2.jpg' %}"            loading="lazy" alt="Happy client">
+              <img src="{% static 'img/CLIENT-3.jpg' %}"            loading="lazy" alt="Happy client">
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="client-item-desktop">
+              <img src="{% static 'img/IMG-20241018-WA0085.jpg' %}" loading="lazy" alt="Happy client">
+              <img src="{% static 'img/IMG-20241018-WA0095.jpg' %}" loading="lazy" alt="Happy client">
+              <img src="{% static 'img/IMG-20241018-WA0096.jpg' %}" loading="lazy" alt="Happy client">
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="client-item-desktop">
+              <img src="{% static 'img/IMG-20241018-WA0083.jpg' %}" loading="lazy" alt="Happy client">
+              <img src="{% static 'img/IMG-20241018-WA0087.jpg' %}" loading="lazy" alt="Happy client">
+              <img src="{% static 'img/CLIENT-1.jpg' %}"            loading="lazy" alt="Happy client">
+            </div>
+          </div>
+
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       CALL TO ACTION
+  ══════════════════════════════════════════════════════════════ -->
+  <section id="call-to-action" class="call-to-action section">
+    <img src="{% static 'img/pngwing.com (1).png' %}" alt="">
+    <div class="container">
+      <div class="row" data-aos="zoom-in" data-aos-delay="100">
+        <div class="col-xl-9 text-center text-xl-start">
+          <h3>LOOKING FOR A SPECIFIC PRODUCT?</h3>
+          <p>Can't find exactly what you need in our collections? Tell us what you're looking for and we'll take it from there.</p>
+        </div>
+        <div class="col-xl-3 cta-btn-container text-center">
+          <a class="cta-btn align-middle" href="{% url 'contact' %}">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════════════
+       TESTIMONIALS
+  ══════════════════════════════════════════════════════════════ -->
+  <section id="testimonials" class="testimonials section">
+
+    <div class="container section-title" data-aos="fade-up">
+      <img src="{% static 'img/pngwing.png' %}" alt="">
+      <h4>Testimonials</h4>
+    </div>
+
+    <div class="container" data-aos="fade-up" data-aos-delay="100">
+      <div class="swiper mdf-swiper-testimonials">
+        <div class="swiper-wrapper">
+
+          <div class="swiper-slide">
+            <div class="testimonial-item">
+              <img src="{% static 'img/testimonials/client-1.jpg' %}" class="testimonial-img" loading="lazy" alt="">
+              <p><i class="bi bi-quote quote-icon-left"></i><span>I got so many compliments on my wedding accessories, and honestly, they made me feel extra special. The pieces gave my outfit that soft, expensive-looking bridal touch I wanted.</span><i class="bi bi-quote quote-icon-right"></i></p>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="testimonial-item">
+              <img src="{% static 'img/testimonials/client-2.jpg' %}" class="testimonial-img" loading="lazy" alt="">
+              <p><i class="bi bi-quote quote-icon-left"></i><span>I didn't realize how much the right accessories could change my entire bridal look until I wore them. The earrings, clutch, and hairpiece made everything feel complete, elegant, and so beautiful.</span><i class="bi bi-quote quote-icon-right"></i></p>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="testimonial-item">
+              <img src="{% static 'img/testimonials/client-3.jpg' %}" class="testimonial-img" loading="lazy" alt="">
+              <p><i class="bi bi-quote quote-icon-left"></i><span>I was a bit nervous about ordering online, but I'm so glad I did. The quality, packaging, and finishing were lovely, and the accessories matched my dress perfectly.</span><i class="bi bi-quote quote-icon-right"></i></p>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="testimonial-item">
+              <img src="{% static 'img/testimonials/client-4.jpg' %}" class="testimonial-img" loading="lazy" alt="">
+              <p><i class="bi bi-quote quote-icon-left"></i><span>These accessories made me feel like a real bride. They were simple, classy, and beautiful in a way that didn't overpower my dress, but still made me stand out.</span><i class="bi bi-quote quote-icon-right"></i></p>
+            </div>
+          </div>
+
+          <div class="swiper-slide">
+            <div class="testimonial-item">
+              <img src="{% static 'img/testimonials/client-5.jpg' %}" class="testimonial-img" loading="lazy" alt="">
+              <p><i class="bi bi-quote quote-icon-left"></i><span>The moment I opened my package, I was genuinely excited. Everything looked classy, well-packaged, and even prettier than the pictures — I could already imagine myself walking in with them.</span><i class="bi bi-quote quote-icon-right"></i></p>
+            </div>
+          </div>
+
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════════════════════════ -->
+<footer id="footer" class="footer">
+
+  <div class="footer-newsletter" id="footer-newsletter">
+    <div class="container">
+      <div class="row justify-content-center text-center">
+        <div class="col-lg-6">
+          <h4>Join Our Newsletter</h4>
+          <p>Subscribe to our newsletter and receive the latest news about our products and services!</p>
+          <!-- FIX: was action="#" which posted back to the current page URL (home view).
+               Now points to the dedicated newsletter/ endpoint added in urls.py.
+               The newsletter view handles subscription then redirects back to home. -->
+          <form action="{% url 'newsletter' %}" method="POST">
+            {% csrf_token %}
+            <div class="newsletter-form">
+              {{ newsform.email }}
+              <input type="submit" value="Subscribe">
+            </div>
+            <div class="loading">Loading</div>
+            <div class="error-message"></div>
+            <div class="sent-message">Your subscription request has been sent. Thank you!</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container footer-top">
+    <div class="row gy-4">
+
+      <div class="col-lg-4 col-md-6 footer-about">
+        <a href="{% url 'home' %}" class="d-flex align-items-center">
+          <div class="sitename"><h1>MDF</h1></div>
+        </a>
+        <div class="footer-contact pt-3">
+          <p>Modest Daily Fashion is a brand that focuses on wedding essentials, aimed at making your wedding celebration memorable. We give you glamour, give standards, and make your wedding celebration the best experience.</p>
+        </div>
+      </div>
+
+      <div class="col-lg-2 col-md-3 footer-links">
+        <h4>Shopping Online</h4>
+        <p><a href="{% url 'ship_info' %}">Shipping And Delivery</a></p>
+        <p><a href="{% url 'pay_info' %}">Payments Options</a></p>
+        <p><a href="{% url 'terms_info' %}">Terms And Conditions</a></p>
+      </div>
+
+      <div class="col-lg-2 col-md-3 footer-links">
+        <h4>Products</h4>
+        <p><a href="{% url 'categories' 'Earrings' %}">Our Collections</a></p>
+        <p><a href="{% url 'contact' %}">Your Feedback</a></p>
+      </div>
+
+      <div class="col-lg-4 col-md-12">
+        <div class="footer-contact pt-3">
+          <h4>Contact</h4>
+          <p>modestdailyfashion@gmail.com</p>
+          <p><b>Hotline:</b> +234 90 000 000 00</p>
+        </div>
+        <div class="social-links d-flex">
+          <a href="https://x.com/modestdailyfash"               aria-label="X (Twitter)"><i class="bi bi-twitter"></i></a>
+          <a href="https://www.facebook.com/Modestdailyfashion"  aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="https://www.instagram.com/modestdailyfashion/" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="container copyright text-center mt-4">
+    <p>© <span>Copyright</span> <strong class="px-1 sitename">Modestdailyfashion</strong> <span>All Rights Reserved</span></p>
+    <div class="credits">Designed by <a href="#">Tech_Dv</a></div>
+  </div>
+
+</footer>
+
+<!-- Scroll Top -->
+<a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center" aria-label="Scroll to top">
+  <i class="bi bi-arrow-up-short"></i>
+</a>
+
+<!-- Preloader -->
+<div id="preloader"></div>
+
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+/* ────────────────────────────────────────────────────────────
+   IMAGE SETS — one array per category, 12 images each
+   (matches the 3 slides × 4 images = 12 [data-product-img] slots)
+────────────────────────────────────────────────────────────── */
+var shoeslide = [
+  "{% static 'img/imaging/shoe-img-1.jfif' %}",
+  "{% static 'img/imaging/shoe-img-2.jfif' %}",
+  "{% static 'img/imaging/shoe-img-3.jfif' %}",
+  "{% static 'img/imaging/shoe-img-4.jfif' %}",
+  "{% static 'img/imaging/shoe-img-5.jfif' %}",
+  "{% static 'img/imaging/shoe-img-6.jfif' %}",
+  "{% static 'img/imaging/shoe-img-7.jfif' %}",
+  "{% static 'img/imaging/shoe-img-8.jfif' %}",
+  "{% static 'img/imaging/shoe-img-9.jfif' %}",
+  "{% static 'img/imaging/shoe-img-10.jfif' %}",
+  "{% static 'img/imaging/shoe-img-11.jfif' %}",
+  "{% static 'img/imaging/shoe-img-12.jfif' %}"
+];
+
+var accessoryslide = [
+  "{% static 'img/imaging/earring-img-1.jfif' %}",
+  "{% static 'img/imaging/earring-img-2.jfif' %}",
+  "{% static 'img/imaging/Diamond necklace.jfif' %}",
+  "{% static 'img/imaging/earring-img-3.jfif' %}",
+  "{% static 'img/imaging/earring-img-1.jfif' %}",
+  "{% static 'img/imaging/earring-img-3.jfif' %}",
+  "{% static 'img/imaging/earring-img-2.jfif' %}",
+  "{% static 'img/imaging/earring-img-3.jfif' %}",
+  "{% static 'img/imaging/earring-img-1.jfif' %}",
+  "{% static 'img/imaging/Diamond necklace.jfif' %}",
+  "{% static 'img/imaging/earring-img-1.jfif' %}",
+  "{% static 'img/imaging/earring-img-2.jfif' %}"
+];
+
+var bouquetslide = [
+  "{% static 'img/imaging/bouquet-img-1.jfif' %}",
+  "{% static 'img/imaging/bouquet-img-2.jfif' %}",
+  "{% static 'img/imaging/bouquet-img-3.jfif' %}",
+  "{% static 'img/imaging/bouquet-img-4.jfif' %}",
+  "{% static 'img/imaging/bouquet-img-5.jfif' %}",
+  "{% static 'img/imaging/bouquet-img-6.jfif' %}",
+  "{% static 'img/imaging/bouquet-img-1.jfif' %}",
+  "{% static 'img/imaging/bouquet-img-6.jfif' %}",
+  "{% static 'img/imaging/bouquet-img-2.jfif' %}",
+  "{% static 'img/imaging/bouquet-img-3.jfif' %}",
+  "{% static 'img/imaging/bouquet-img-4.jfif' %}",
+  "{% static 'img/imaging/bouquet-img-5.jfif' %}"
+];
+
+var purseslide = [
+  "{% static 'img/imaging/bag-img-1.jfif' %}",
+  "{% static 'img/imaging/bag-img-2.jfif' %}",
+  "{% static 'img/imaging/bag-img-3.jfif' %}",
+  "{% static 'img/imaging/bag-img-4.jfif' %}",
+  "{% static 'img/imaging/bag-img-5.jfif' %}",
+  "{% static 'img/imaging/bag-img-6.jfif' %}",
+  "{% static 'img/imaging/bag-img-7.jfif' %}",
+  "{% static 'img/imaging/bag-img-8.jfif' %}",
+  "{% static 'img/imaging/bag-img-9.jfif' %}",
+  "{% static 'img/imaging/bag-img-10.jfif' %}",
+  "{% static 'img/imaging/bag-img-11.jfif' %}",
+  "{% static 'img/imaging/bag-img-12.jfif' %}"
+];
+
+/* ────────────────────────────────────────────────────────────
+   STAMP IMAGES — writes src into every [data-product-img]
+────────────────────────────────────────────────────────────── */
+function setProductImages(slideset) {
+  document.querySelectorAll('[data-product-img]').forEach(function(img) {
+    var idx = parseInt(img.getAttribute('data-product-img'), 10);
+    if (slideset[idx]) img.src = slideset[idx];
+  });
+}
+
+/* ────────────────────────────────────────────────────────────
+   CATEGORY PILL HANDLER
+────────────────────────────────────────────────────────────── */
+function changeCategory(triggerEl, slideset) {
+  /* deactivate all pills */
+  document.querySelectorAll('#navmenu-our-product ul li a').forEach(function(a) {
+    a.classList.remove('active');
+  });
+  if (triggerEl) triggerEl.classList.add('active');
+
+  /* stamp new images */
+  setProductImages(slideset);
+
+  /* reset product swiper to slide 0 */
+  var el = document.querySelector('.mdf-swiper-products');
+  if (el && el.swiper) {
+    el.swiper.loopDestroy && el.swiper.loopDestroy();
+    el.swiper.update();
+    el.swiper.loopCreate && el.swiper.loopCreate();
+    el.swiper.slideTo(0, 0, false);
+    if (el.swiper.autoplay && el.swiper.autoplay.running === false) {
+      el.swiper.autoplay.start();
+    }
+  }
+}
+
+/* ────────────────────────────────────────────────────────────
+   SWIPER FACTORY — safe: skips if already inited
+────────────────────────────────────────────────────────────── */
+function buildSwiper(selector, opts) {
+  var el = document.querySelector(selector);
+  if (!el) return null;
+  if (el.swiper) { el.swiper.update(); return el.swiper; }
+
+  var slideCount = el.querySelectorAll('.swiper-wrapper > .swiper-slide').length;
+  var canLoop   = slideCount > 1;
+
+  var config = {
+    loop:          canLoop,
+    speed:         opts.speed       || 700,
+    autoplay:      canLoop ? { delay: opts.delay || 5000, disableOnInteraction: false } : false,
+    watchOverflow: true,
+    observer:      true,
+    observeParents:true,
+    pagination: {
+      el:        selector + ' .swiper-pagination',
+      clickable: true
+    }
+  };
+
+  if (opts.effect) config.effect = opts.effect;
+
+  return new Swiper(selector, config);
+}
+
+/* ────────────────────────────────────────────────────────────
+   BOOT
+────────────────────────────────────────────────────────────── */
+document.addEventListener('DOMContentLoaded', function() {
+
+  /* Randomise backend collection products on every page refresh */
+  document.querySelectorAll('[data-random-collection]').forEach(function(grid) {
+    var limit = parseInt(grid.getAttribute('data-random-limit') || '9', 10);
+    var cards = Array.prototype.slice.call(grid.querySelectorAll('.mdf-collection-card'));
+
+    for (var i = cards.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = cards[i];
+      cards[i] = cards[j];
+      cards[j] = temp;
+    }
+
+    cards.forEach(function(card, index) {
+      card.classList.toggle('is-hidden-random', index >= limit);
+      grid.appendChild(card);
+    });
+  });
+
+  /* Stamp default images first so the product section is never empty */
+  setProductImages(shoeslide);
+  var defaultPill = document.querySelector('#navmenu-our-product ul li:first-child a');
+  if (defaultPill) defaultPill.classList.add('active');
+
+  if (typeof Swiper === 'undefined') {
+    console.error('MDF: Swiper is not loaded. Add swiper-bundle.min.js to base.html before the extra_js block.');
+    return;
+  }
+
+  /* Desktop hero swiper */
+  buildSwiper('.mdf-swiper-hero', { delay: 5000 });
+
+  /* Mobile hero swiper — scoped pagination selector */
+  var mhEl = document.querySelector('.mdf-swiper-mobile-hero');
+  if (mhEl && !mhEl.swiper) {
+    var mhCount = mhEl.querySelectorAll('.swiper-wrapper > .swiper-slide').length;
+    new Swiper('.mdf-swiper-mobile-hero', {
+      loop:          mhCount > 1,
+      speed:         800,
+      effect:        'fade',
+      fadeEffect:    { crossFade: true },
+      autoplay:      mhCount > 1 ? { delay: 6000, disableOnInteraction: false } : false,
+      watchOverflow: true,
+      observer:      true,
+      observeParents:true,
+      pagination: {
+        el:        '.mdf-swiper-mobile-hero .mdf-mhero-dots',
+        clickable: true
+      }
+    });
+  }
+
+  /* Product swiper */
+  buildSwiper('.mdf-swiper-products', { delay: 4500 });
+
+  /* Clients swiper */
+  buildSwiper('.mdf-swiper-clients', { delay: 5500 });
+
+  /* Testimonials swiper */
+  buildSwiper('.mdf-swiper-testimonials', { delay: 5000 });
+
+});
+
+/* Re-update on resize (handles orientation change) */
+window.addEventListener('resize', function() {
+  document.querySelectorAll('.swiper').forEach(function(el) {
+    if (el.swiper) el.swiper.update();
+  });
+});
+</script>
+{% endblock %}

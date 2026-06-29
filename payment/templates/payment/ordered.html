@@ -1,0 +1,76 @@
+{% extends 'base.html'%}
+
+{% load static %}
+{% block contents %}
+
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title">
+      <div class="container about-title">
+        {% comment %} <h4>Billing Information</h4> {% endcomment %}
+    </div>
+</div><!-- End Page Title -->
+
+<div class="billing-body">
+    <div class="billing-form">
+        <div class="card" style="text-align: center">
+            <div class="card-header">
+                <h5>ORDER {{ order.id }}  -  <strike>N</strike>{{ order.amount_paid }}</h5>
+            </div>
+            <div class="card-body">
+                <b>Email:</b> {{ order.order_email}} <br><br>
+                
+                {% if order.date_shipped %}
+                <b>Date Shipped:</b> {{ order.date_shipped }}
+                {% else %}
+                <b>Date Ordered:</b> {{ order.order_date }}
+                {% endif %} <br><br>
+                                
+                <b>Full Name:</b> {{ order.order_name }} <br><br>
+                <b>Telephone:</b> {{ order.order_phone_number }} <br><br>
+                
+                <b>Shipping Address:</b> {{ order.order_address}} <br><br>
+                
+                <b>Ordered Items</b><br>
+                {% for item in items %}
+                    <b>Name: </b>{{ item.product }} <br> <b>Quantity: </b>{{ item.quantity }} - <b>Price: </b><strike>N</strike>{{ order.amount_paid }} <br>
+                {% endfor %} <br>
+                
+                
+                {% if not order.shipped %}  
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="shipping_status" value="true">
+                    <button type="submit" class="btn btn-success"> Mark As Shipped</button>
+                </form>
+
+                {% else %}
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="shipping_status" value="false">
+                    <button type="submit" class="btn btn-danger"> Mark As Not Shipped</button>
+                </form>
+
+                {% endif %}
+                
+            </div>
+        </div>        
+    </div>
+</div>
+
+</main>
+
+<!-- Main JS File -->
+<script src="{% static 'js/main.js'%}"></script>
+
+
+
+    
+    
+
+
+{% endblock%}

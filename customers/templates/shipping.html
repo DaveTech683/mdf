@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Shipping Address — Modest Daily Fashion{% endblock %}
+
+{% block contents %}
+<link rel="stylesheet" href="{% static 'css/mdf_commerce_pages.css' %}">
+
+<main class="main mdf-commerce-page" id="mdf-commerce-shipping-address-page">
+
+  <section class="mdf-commerce-hero">
+    <div class="mdf-commerce-container">
+      <span class="mdf-commerce-eyebrow"><i class="bi bi-geo-alt"></i> Checkout</span>
+      <h1>Your Product Shipping Address</h1>
+      <p>Enter the correct delivery details so we can prepare your order and send it through the best available delivery option.</p>
+    </div>
+  </section>
+
+  <section class="mdf-commerce-container">
+    <div class="mdf-commerce-shipping-layout">
+
+      <aside class="mdf-commerce-card mdf-commerce-shipping-side" data-aos="fade-right" data-aos-delay="100">
+        <h2>Almost there</h2>
+        <p>Confirm your delivery information carefully before moving to payment. This helps us avoid delays and wrong delivery routing.</p>
+
+        <div class="mdf-commerce-shipping-points">
+          <div class="mdf-commerce-shipping-point">
+            <i class="bi bi-check2"></i>
+            <span>Use your active phone number</span>
+          </div>
+          <div class="mdf-commerce-shipping-point">
+            <i class="bi bi-check2"></i>
+            <span>Enter a clear street address</span>
+          </div>
+          <div class="mdf-commerce-shipping-point">
+            <i class="bi bi-check2"></i>
+            <span>Confirm your state and country</span>
+          </div>
+        </div>
+      </aside>
+
+      <div class="mdf-commerce-card mdf-commerce-shipping-form-card" data-aos="fade-left" data-aos-delay="160">
+        <form action="{% url 'checkout' %}" method="POST" id="mdf-commerce-shipping-form">
+          {% csrf_token %}
+          {{ Shipping_form.as_p }}
+          <button type="submit" class="mdf-commerce-shipping-submit-btn" id="mdf-commerce-shipping-submit-btn">
+            Continue To Payment
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}

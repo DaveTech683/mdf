@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block contents %}
+
+<link rel="stylesheet" href="{% static 'css/mdf-auth-pages.css' %}">
+
+<main class="main">
+
+  <section class="mdf-auth-page mdf-auth-login-page" id="mdf-auth-login-page">
+    <div class="mdf-auth-container">
+
+      <div class="mdf-auth-card mdf-auth-login-card">
+
+        <div class="mdf-auth-left">
+          <span class="mdf-auth-eyebrow">Welcome Back</span>
+          <h1 class="mdf-auth-title">Log in to your account</h1>
+          <p class="mdf-auth-subtitle">
+            Access your account to continue shopping your favourite modest fashion pieces.
+          </p>
+
+          <div class="mdf-auth-benefits">
+            <div class="mdf-auth-benefit-item">
+              <i class="bi bi-bag-heart"></i>
+              <span>View your orders and saved products</span>
+            </div>
+
+            <div class="mdf-auth-benefit-item">
+              <i class="bi bi-shield-check"></i>
+              <span>Secure and easy account access</span>
+            </div>
+
+            <div class="mdf-auth-benefit-item">
+              <i class="bi bi-stars"></i>
+              <span>Enjoy a smoother shopping experience</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mdf-auth-right">
+
+          <form method="POST" action="{% url 'signin' %}" class="mdf-auth-form" id="mdf-auth-login-form">
+            {% csrf_token %}
+
+            <div class="mdf-auth-form-header">
+              <h2>Sign In</h2>
+              <p>Enter your username and password to continue.</p>
+            </div>
+
+            <div class="mdf-auth-field-group">
+              <label for="mdf-auth-login-username">Username</label>
+              <div class="mdf-auth-input-wrap">
+                <i class="bi bi-person"></i>
+                <input 
+                  class="mdf-auth-input" 
+                  type="text" 
+                  name="username" 
+                  id="mdf-auth-login-username" 
+                  placeholder="Enter your username"
+                  required
+                >
+              </div>
+            </div>
+
+            <div class="mdf-auth-field-group">
+              <label for="mdf-auth-login-password">Password</label>
+              <div class="mdf-auth-input-wrap">
+                <i class="bi bi-lock"></i>
+                <input 
+                  class="mdf-auth-input" 
+                  type="password" 
+                  name="password" 
+                  id="mdf-auth-login-password" 
+                  placeholder="Enter your password"
+                  required
+                >
+              </div>
+            </div>
+
+            <button class="mdf-auth-main-btn" type="submit" name="login">
+              Sign In
+            </button>
+
+            <div class="mdf-auth-divider">
+              <span>or continue with</span>
+            </div>
+
+            <div class="mdf-auth-social-row">
+              <!-- <a href="{% url 'social:begin' 'instagram' %}" class="mdf-auth-social-btn mdf-auth-social-instagram">
+                <i class="bi bi-instagram"></i>
+                Instagram
+              </a> -->
+
+              <a href="{% url 'social:begin' 'facebook' %}" class="mdf-auth-social-btn mdf-auth-social-facebook">
+                <i class="bi bi-facebook"></i>
+                Facebook
+              </a>
+            </div>
+
+            <p class="mdf-auth-switch-text">
+              Not a member yet?
+              {% if user.is_authenticated %}
+                <a href="{% url 'signup' %}" class="mdf-auth-hidden-link">Sign up</a>
+              {% else %}
+                <a href="{% url 'signup' %}">Sign up</a>
+              {% endif %}
+            </p>
+
+          </form>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<script src="{% static 'js/main.js' %}"></script>
+
+{% endblock %}

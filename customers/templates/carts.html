@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Your Shopping Cart — Modest Daily Fashion{% endblock %}
+
+{% block contents %}
+<link rel="stylesheet" href="{% static 'css/mdf_commerce_pages.css' %}">
+
+<main class="main mdf-commerce-page" id="mdf-commerce-cart-page">
+
+  <div class="mdf-commerce-login-modal" id="mdf-commerce-login-modal" aria-hidden="true">
+    <div class="mdf-commerce-card mdf-commerce-login-box">
+      <a href="#" class="mdf-commerce-login-close" onclick="mdfCommerceCloseLogin(); return false;" aria-label="Close login">&times;</a>
+
+      <h2>Log In</h2>
+      <p>Already a member? Sign in to continue checking out.</p>
+
+      <form method="POST" action="{% url 'cart' %}" class="mdf-commerce-login-form">
+        {% csrf_token %}
+        <div class="mdf-commerce-login-field">
+          <input type="text" name="username" placeholder="Username or email" required>
+        </div>
+        <div class="mdf-commerce-login-field">
+          <input type="password" name="password" placeholder="Password" required>
+        </div>
+        <button type="submit" name="login" class="mdf-commerce-btn">Sign In</button>
+        <p class="mdf-commerce-login-switch">Not a member yet? <a href="{% url 'signup' %}">Create an account</a></p>
+      </form>
+    </div>
+  </div>
+
+  <section class="mdf-commerce-hero">
+    <div class="mdf-commerce-container">
+      <span class="mdf-commerce-eyebrow"><i class="bi bi-bag-heart"></i> Your Bag</span>
+      <h1>Shopping Cart</h1>
+      <p>Review your selected pieces, update quantities, and continue to checkout when everything looks perfect.</p>
+    </div>
+  </section>
+
+  <section class="mdf-commerce-container">
+    {% if items %}
+    <div class="mdf-commerce-cart-layout">
+
+      <div class="mdf-commerce-card mdf-commerce-cart-list" data-aos="fade-up" data-aos-delay="100">
+        <div class="mdf-commerce-cart-list-header">
+          <span>Product</span>
+          <span>Color</span>
+          <span>Size</span>
+          <span>Quantity</span>
+          <span>Price</span>
+          <span></span>
+        </div>
+
+        {% for item in items %}
+        <div class="mdf-commerce-cart-row">
+          <div class="mdf-commerce-cart-product">
+            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+            <div>
+              <h3>{{ item.product.name }}</h3>
+              <span>#{{ item.product.product_id }}</span>
+            </div>
+          </div>
+
+          <div class="mdf-commerce-cart-meta" data-label="Color">{{ item.product.color }}</div>
+          <div class="mdf-commerce-cart-meta" data-label="Size">{{ item.product.size }}</div>
+
+          <div class="mdf-commerce-cart-qty" aria-label="Cart quantity controls">
+            <button class="update-cart" data-product="{{ item.product.product_id }}" data-action="remove" type="button" aria-label="Decrease quantity">&minus;</button>
+            <p>{{ item.quantity }}</p>
+            <button class="update-cart" data-product="{{ item.product.product_id }}" data-action="add" type="button" aria-label="Increase quantity">+</button>
+          </div>
+
+          <div class="mdf-commerce-cart-price" data-label="Price">₦{{ item.product.price }}</div>
+          <a href="#" class="mdf-commerce-cart-remove" aria-label="Remove item">&times;</a>
+        </div>
+        {% endfor %}
+      </div>
+
+      <aside class="mdf-commerce-card mdf-commerce-cart-summary" data-aos="fade-left" data-aos-delay="160">
+        <h2>Order Summary</h2>
+
+        <div class="mdf-commerce-cart-promo">
+          <label for="mdf-commerce-promo-code">Promo Code</label>
+          <input type="text" id="mdf-commerce-promo-code" placeholder="Enter promo code">
+        </div>
+
+        <div class="mdf-commerce-summary-line">
+          <span>Items</span>
+          <strong>{{ order.get_cart_items|default:items|length }}</strong>
+        </div>
+
+        <div class="mdf-commerce-summary-line mdf-commerce-summary-total">
+          <span>Total Cost</span>
+          <strong>₦{{ order.get_cart_total|default:'0' }}</strong>
+        </div>
+
+        <div class="mdf-commerce-cart-actions">
+          <a class="mdf-commerce-cart-back-btn" onclick="history.go(-1); return false;" href="#">Continue Shopping</a>
+          {% if user.is_authenticated %}
+            <a class="mdf-commerce-cart-checkout-btn" href="{% url 'shipping' %}">Next Step</a>
+          {% else %}
+            <a class="mdf-commerce-cart-checkout-btn" onclick="mdfCommerceOpenLogin(); return false;" href="#">Next Step</a>
+          {% endif %}
+        </div>
+      </aside>
+
+    </div>
+    {% else %}
+      <div class="mdf-commerce-card mdf-commerce-empty-cart">
+        <i class="bi bi-bag-x"></i>
+        <h2>Your cart is empty</h2>
+        <p>You have not added any product to your cart yet.</p>
+        <a href="{% url 'categories' 'Earrings' %}" class="mdf-commerce-btn">Browse Collections</a>
+      </div>
+    {% endif %}
+  </section>
+
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  const mdfCommerceLoginModal = document.getElementById('mdf-commerce-login-modal');
+
+  function mdfCommerceOpenLogin() {
+    if (!mdfCommerceLoginModal) return;
+    mdfCommerceLoginModal.classList.add('mdf-commerce-login-modal-open');
+    mdfCommerceLoginModal.setAttribute('aria-hidden', 'false');
+  }
+
+  function mdfCommerceCloseLogin() {
+    if (!mdfCommerceLoginModal) return;
+    mdfCommerceLoginModal.classList.remove('mdf-commerce-login-modal-open');
+    mdfCommerceLoginModal.setAttribute('aria-hidden', 'true');
+  }
+
+  if (mdfCommerceLoginModal) {
+    mdfCommerceLoginModal.addEventListener('click', function(e) {
+      if (e.target === mdfCommerceLoginModal) {
+        mdfCommerceCloseLogin();
+      }
+    });
+  }
+</script>
+{% endblock %}

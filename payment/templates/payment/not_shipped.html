@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Unshipped Goods — Modest Daily Fashion{% endblock %}
+
+{% block contents %}
+
+<link rel="stylesheet" href="{% static 'css/mdf-admin-pages.css' %}">
+
+<main class="main">
+  <section class="mdf-admin-page" id="mdf-admin-unshipped-page">
+    <div class="mdf-admin-container">
+
+      <div class="mdf-admin-hero" data-aos="fade-up">
+        <div>
+          <span class="mdf-admin-kicker">Order Fulfilment</span>
+          <h1 class="mdf-admin-title">Unshipped Goods</h1>
+          <p class="mdf-admin-subtitle">
+            Review pending orders and mark them as shipped once delivery processing has started.
+          </p>
+        </div>
+
+        <div class="mdf-admin-stat-card">
+          <span>Pending Orders</span>
+          <strong>{{ orders|length }}</strong>
+        </div>
+      </div>
+
+      <div class="mdf-admin-panel" data-aos="fade-up" data-aos-delay="100">
+        <div class="mdf-admin-panel-header">
+          <div>
+            <h2>Pending Shipment Records</h2>
+            <p>Orders below are still waiting to be marked as shipped.</p>
+          </div>
+          <div class="mdf-admin-panel-icon">
+            <i class="bi bi-truck"></i>
+          </div>
+        </div>
+
+        {% if orders %}
+          <div class="mdf-admin-table-wrap">
+            <table class="mdf-admin-table">
+              <thead>
+                <tr>
+                  <th scope="col">Order</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Customer Email</th>
+                  <th scope="col">Date Ordered</th>
+                  <th scope="col">Ship Status</th>
+                </tr>
+              </thead>
+
+              <tbody>
+                {% for item in orders %}
+                <tr>
+                  <td>
+                    <a href="{% url 'orders' item.id %}" class="mdf-admin-order-link">
+                      <i class="bi bi-receipt"></i>
+                      Order #{{ item.id }}
+                    </a>
+                  </td>
+
+                  <td class="mdf-admin-price">₦{{ item.amount_paid }}</td>
+                  <td>{{ item.order_email }}</td>
+                  <td>{{ item.order_date }}</td>
+
+                  <td>
+                    <form method="POST">
+                      {% csrf_token %}
+                      <input type="hidden" name="shipping_status" value="false">
+                      <input type="hidden" name="num" value="{{ item.id }}">
+                      <button type="submit" class="mdf-admin-success-btn">
+                        <i class="bi bi-check-circle"></i>
+                        Mark Shipped
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        {% else %}
+          <div class="mdf-admin-empty-state">
+            <i class="bi bi-check2-circle"></i>
+            <h3>No unshipped goods</h3>
+            <p>All orders have been handled or there are no pending shipments yet.</p>
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script src="{% static 'js/main.js' %}"></script>
+
+{% endblock %}

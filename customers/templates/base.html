@@ -1,0 +1,499 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>{% block title %}Modest Daily Fashion | Bridal & Wedding Essentials{% endblock %}</title>
+
+  <meta name="description" content="Modest Daily Fashion is your one-stop shop for bridal essentials — shoes, accessories, bouquets and clutch purses for brides, bridesmaids and the entire wedding party.">
+  <meta name="keywords" content="bridal accessories, wedding shoes, bridesmaid gifts, bouquets, clutch purses, Modest Daily Fashion">
+
+  <!-- Favicons -->
+  <link href="{% static 'assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/aos/aos.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="{% static 'css/co-main.css' %}" rel="stylesheet">
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    crossorigin="anonymous"></script>
+
+  <script>
+    var user = '{{ request.user }}';
+
+    function getToken(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+
+    const csrftoken = getToken('csrftoken');
+  </script>
+
+  <style>
+    /* Dot that appears BEFORE text — desktop triggers and dropdown links */
+    .mdf-nav-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      background: #e63946;
+      border-radius: 50%;
+      flex-shrink: 0;
+      vertical-align: middle;
+    }
+
+    /* Desktop: dot sits to the left of the label, small right gap */
+    .mdf-drop-trigger .mdf-nav-dot,
+    .mdf-dropdown a .mdf-nav-dot {
+      margin-right: 5px;
+      margin-left: 0;
+    }
+
+    /* Mobile drawer: dot hugs the text on the left, no gap to the right edge */
+    .mdf-dl .mdf-nav-dot,
+    .mdf-dl-sub a .mdf-nav-dot,
+    .mdf-dl-toggle .mdf-nav-dot {
+      margin-right: 6px;
+      margin-left: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header id="header" class="mdf-header">
+    <div class="mdf-header-inner">
+
+      <!-- Logo -->
+      <a href="{% url 'home' %}" class="mdf-logo">
+        <img src="{% static 'img/white-modest-logo.png' %}" alt="Modest Daily Fashion">
+      </a>
+
+      <!-- Desktop navigation -->
+      <nav class="mdf-desktop-nav" aria-label="Main navigation">
+        <ul class="mdf-nav-list">
+
+          {% if request.user.is_authenticated and request.user.is_superuser %}
+
+            <li><a href="{% url 'home' %}" class="mdf-nav-link">Home</a></li>
+
+            <li class="mdf-has-drop">
+              <button type="button" class="mdf-drop-trigger" aria-haspopup="true" aria-expanded="false">
+                {% if unshipped_count %}<span class="mdf-nav-dot"></span>{% endif %}Orders
+                <i class="bi bi-chevron-down mdf-chev"></i>
+              </button>
+
+              <ul class="mdf-dropdown">
+                <li><a href="{% url 'shipped_dash' %}">Shipped Orders</a></li>
+                <li>
+                  <a href="{% url 'not_shipped_dash' %}">
+                    {% if unshipped_count %}<span class="mdf-nav-dot"></span>{% endif %}Not Shipped Orders
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="mdf-has-drop">
+              <button type="button" class="mdf-drop-trigger" aria-haspopup="true" aria-expanded="false">
+                Admin <i class="bi bi-chevron-down mdf-chev"></i>
+              </button>
+
+              <ul class="mdf-dropdown">
+                <li><a href="{% url 'admin_uploads' %}">Upload Products</a></li>
+                <li><a href="{% url 'admin_cat_list' %}">All Products</a></li>
+              </ul>
+            </li>
+
+            <li><a href="{% url 'categories' 'Earrings' %}" class="mdf-nav-link">Categories</a></li>
+            <li><a href="{% url 'signout' %}" class="mdf-nav-link mdf-nav-out">Log Out</a></li>
+
+          {% elif request.user.is_authenticated %}
+
+            <li><a href="{% url 'home' %}" class="mdf-nav-link">Home</a></li>
+            <li><a href="{% url 'about' %}" class="mdf-nav-link">About</a></li>
+            <li>
+              <a href="{% url 'track' %}" class="mdf-nav-link">
+                {% if has_arrived %}<span class="mdf-nav-dot"></span>{% endif %}Track Order
+              </a>
+            </li>
+            <li><a href="{% url 'categories' 'Earrings' %}" class="mdf-nav-link">Shop</a></li>
+            <li><a href="{% url 'contact' %}" class="mdf-nav-link">Contact</a></li>
+            <li><a href="{% url 'signout' %}" class="mdf-nav-link mdf-nav-out">Log Out</a></li>
+
+          {% else %}
+
+            <li><a href="{% url 'home' %}" class="mdf-nav-link">Home</a></li>
+            <li><a href="{% url 'about' %}" class="mdf-nav-link">About</a></li>
+            <li><a href="{% url 'categories' 'Earrings' %}" class="mdf-nav-link">Shop</a></li>
+            <li><a href="{% url 'contact' %}" class="mdf-nav-link">Contact</a></li>
+            <li><a href="{% url 'signin' %}" class="mdf-nav-link mdf-nav-login">Login</a></li>
+
+          {% endif %}
+
+        </ul>
+      </nav>
+
+      <div class="mdf-header-right">
+        <a class="mdf-cart-btn" href="{% url 'cart_summary' %}" aria-label="Shopping cart">
+          <img src="{% static 'img/pngwing.com (7).png' %}" alt="">
+          <span class="mdf-cart-count" id="cart-count">{{ cart.distinct_count }}</span>
+        </a>
+      </div>
+
+        <button type="button" class="mdf-hamburger" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mobile-drawer">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Mobile drawer overlay -->
+    <div class="mdf-overlay" id="mobile-overlay" aria-hidden="true"></div>
+
+    <!-- Mobile drawer -->
+    <div class="mdf-drawer" id="mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+
+      <div class="mdf-drawer-head">
+        <a href="{% url 'home' %}" class="mdf-drawer-logo">
+          <img src="{% static 'img/white-modest-logo.png' %}" alt="Modest Daily Fashion">
+        </a>
+        <button type="button" class="mdf-drawer-close" aria-label="Close navigation">
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
+
+      <nav class="mdf-drawer-nav">
+
+        {% if request.user.is_authenticated and request.user.is_superuser %}
+
+          <a href="{% url 'home' %}" class="mdf-dl">Home</a>
+
+          <div class="mdf-dl-group">
+            <button type="button" class="mdf-dl-toggle" aria-expanded="false">
+              {% if unshipped_count %}<span class="mdf-nav-dot"></span>{% endif %}Orders
+              <i class="bi bi-chevron-down"></i>
+            </button>
+
+            <div class="mdf-dl-sub">
+              <a href="{% url 'shipped_dash' %}">Shipped Orders</a>
+              <a href="{% url 'not_shipped_dash' %}">
+                {% if unshipped_count %}<span class="mdf-nav-dot"></span>{% endif %}Not Shipped Orders
+              </a>
+            </div>
+          </div>
+
+          <div class="mdf-dl-group">
+            <button type="button" class="mdf-dl-toggle" aria-expanded="false">
+              Admin <i class="bi bi-chevron-down"></i>
+            </button>
+            <div class="mdf-dl-sub">
+              <a href="{% url 'admin_uploads' %}">Upload Products</a>
+              <a href="{% url 'admin_cat_list' %}">All Products</a>
+            </div>
+          </div>
+
+          <a href="{% url 'categories' 'Earrings' %}" class="mdf-dl">Categories</a>
+          <a href="{% url 'signout' %}" class="mdf-dl mdf-dl-out">Log Out</a>
+
+        {% elif request.user.is_authenticated %}
+
+          <a href="{% url 'home' %}" class="mdf-dl">Home</a>
+          <a href="{% url 'about' %}" class="mdf-dl">About</a>
+          <a href="{% url 'track' %}" class="mdf-dl">
+            {% if has_arrived %}<span class="mdf-nav-dot"></span>{% endif %}Track Order
+          </a>
+          <a href="{% url 'categories' 'Earrings' %}" class="mdf-dl">Shop</a>
+          <a href="{% url 'contact' %}" class="mdf-dl">Contact</a>
+          <a href="{% url 'signout' %}" class="mdf-dl mdf-dl-out">Log Out</a>
+
+        {% else %}
+
+          <a href="{% url 'home' %}" class="mdf-dl">Home</a>
+          <a href="{% url 'about' %}" class="mdf-dl">About</a>
+          <a href="{% url 'categories' 'Earrings' %}" class="mdf-dl">Shop</a>
+          <a href="{% url 'contact' %}" class="mdf-dl">Contact</a>
+          <a href="{% url 'signin' %}" class="mdf-dl mdf-dl-login">Login</a>
+
+        {% endif %}
+
+      </nav>
+
+      <div class="mdf-drawer-foot">
+        <a href="{% url 'cart_summary' %}" class="mdf-drawer-cart">
+          <i class="bi bi-bag"></i>
+          View Cart
+          <span>{{ cart.distinct_count }}</span>
+        </a>
+      </div>
+
+    </div>
+    <!-- /Mobile drawer -->
+
+  </header>
+
+  <!-- Flash messages -->
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert alert-warning alert-dismissible fade show" id="messaging" role="alert">
+        <strong>{{ message }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  {% block contents %}
+  {% endblock %}
+
+  <!-- Vendor JS Files -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"
+    integrity="sha512-A7AYk1fGKX6S2SsHywmPkrnzTZHrgiVT7GcQkLGDe2ev0aWb8zejytzS8wjo7PGEXKqJOrjQ4oORtnimIRZBtw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"></script>
+
+  <script src="{% static 'js/glightbox.min.js' %}"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+    crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+    crossorigin="anonymous"></script>
+
+  <script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+  <script>
+    if (typeof window.Swiper === 'undefined') {
+      document.write('<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"><\/script>');
+    }
+  </script>
+
+  <script src="{% static 'js/noframework.waypoints.js' %}"></script>
+  <script src="{% static 'js/imagesloaded.pkgd.min.js' %}"></script>
+  <script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'js/main.js' %}"></script>
+  <script src="{% static 'js/cart.js' %}"></script>
+
+  <script>
+    (function () {
+
+      /* ---- Header scroll shadow ---- */
+      var header = document.getElementById('header');
+
+      function syncHeaderShadow() {
+        if (!header) return;
+        header.classList.toggle('mdf-scrolled', window.scrollY > 10);
+      }
+
+      window.addEventListener('scroll', syncHeaderShadow);
+      syncHeaderShadow();
+
+      /* ---- Desktop dropdown click-to-toggle ---- */
+      var dropdowns = document.querySelectorAll('.mdf-has-drop');
+
+      dropdowns.forEach(function (item) {
+        var trigger = item.querySelector('.mdf-drop-trigger');
+        if (!trigger) return;
+
+        trigger.addEventListener('click', function (e) {
+          e.preventDefault();
+          var willOpen = !item.classList.contains('is-open');
+
+          dropdowns.forEach(function (i) {
+            i.classList.remove('is-open');
+            var t = i.querySelector('.mdf-drop-trigger');
+            if (t) t.setAttribute('aria-expanded', 'false');
+          });
+
+          if (willOpen) {
+            item.classList.add('is-open');
+            trigger.setAttribute('aria-expanded', 'true');
+          }
+        });
+      });
+
+      document.addEventListener('click', function (e) {
+        if (!e.target.closest('.mdf-has-drop')) {
+          dropdowns.forEach(function (i) {
+            i.classList.remove('is-open');
+            var t = i.querySelector('.mdf-drop-trigger');
+            if (t) t.setAttribute('aria-expanded', 'false');
+          });
+        }
+      });
+
+      /* ---- Mobile drawer ---- */
+      var drawer = document.getElementById('mobile-drawer');
+      var overlay = document.getElementById('mobile-overlay');
+      var hamburger = document.querySelector('.mdf-hamburger');
+      var drawerClose = document.querySelector('.mdf-drawer-close');
+
+      function openDrawer() {
+        if (!drawer || !overlay || !hamburger) return;
+        drawer.classList.add('is-open');
+        overlay.classList.add('is-visible');
+        document.body.classList.add('mdf-drawer-open');
+        hamburger.setAttribute('aria-expanded', 'true');
+        overlay.setAttribute('aria-hidden', 'false');
+      }
+
+      function closeDrawer() {
+        if (!drawer || !overlay || !hamburger) return;
+        drawer.classList.remove('is-open');
+        overlay.classList.remove('is-visible');
+        document.body.classList.remove('mdf-drawer-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        overlay.setAttribute('aria-hidden', 'true');
+      }
+
+      if (hamburger) {
+        hamburger.addEventListener('click', function (e) {
+          e.preventDefault();
+          if (!drawer) return;
+          if (drawer.classList.contains('is-open')) {
+            closeDrawer();
+          } else {
+            openDrawer();
+          }
+        });
+      }
+
+      if (drawerClose) {
+        drawerClose.addEventListener('click', function (e) {
+          e.preventDefault();
+          closeDrawer();
+        });
+      }
+
+      if (overlay) overlay.addEventListener('click', closeDrawer);
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeDrawer();
+      });
+
+      /* ---- Mobile accordion groups ---- */
+      document.querySelectorAll('.mdf-dl-toggle').forEach(function (btn) {
+        btn.addEventListener('click', function (e) {
+          e.preventDefault();
+          var group = this.closest('.mdf-dl-group');
+          if (!group) return;
+
+          var expanded = this.getAttribute('aria-expanded') === 'true';
+
+          document.querySelectorAll('.mdf-dl-group').forEach(function (item) {
+            item.classList.remove('is-open');
+            var toggle = item.querySelector('.mdf-dl-toggle');
+            if (toggle) toggle.setAttribute('aria-expanded', 'false');
+          });
+
+          if (!expanded) {
+            group.classList.add('is-open');
+            this.setAttribute('aria-expanded', 'true');
+          }
+        });
+      });
+
+      /* ---- Close drawer on link click ---- */
+      if (drawer) {
+        drawer.querySelectorAll('.mdf-dl, .mdf-dl-sub a, .mdf-drawer-cart').forEach(function (link) {
+          link.addEventListener('click', closeDrawer);
+        });
+      }
+
+      /* ---- Preloader ---- */
+      window.addEventListener('load', function () {
+        var preloader = document.getElementById('preloader');
+        if (preloader) preloader.remove();
+      });
+
+      /* ---- Scroll-to-top ---- */
+      var scrollTopBtn = document.getElementById('scroll-top');
+
+      if (scrollTopBtn) {
+        var syncScrollTop = function () {
+          scrollTopBtn.classList.toggle('active', window.scrollY > 100);
+        };
+
+        scrollTopBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        window.addEventListener('scroll', syncScrollTop);
+        syncScrollTop();
+      }
+
+    })();
+  </script>
+
+  <!-- AOS Init -->
+  <script>
+    (function () {
+
+      function revealAosElementsWithoutAnimation() {
+        document.body.classList.add('aos-failed');
+        document.querySelectorAll('[data-aos]').forEach(function (el) {
+          el.style.opacity = '1';
+          el.style.transform = 'none';
+          el.style.visibility = 'visible';
+        });
+      }
+
+      function initAOS() {
+        if (window.AOS) {
+          document.body.classList.add('aos-initialized');
+          AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            mirror: false
+          });
+        } else {
+          revealAosElementsWithoutAnimation();
+        }
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initAOS);
+      } else {
+        initAOS();
+      }
+
+      window.addEventListener('load', function () {
+        if (window.AOS) AOS.refresh();
+      });
+
+    })();
+  </script>
+
+  {% block extra_js %}{% endblock %}
+
+</body>
+</html>

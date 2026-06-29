@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Payment Information — Modest Daily Fashion{% endblock %}
+
+{% block contents %}
+
+<link rel="stylesheet" href="{% static 'css/mdf-order-pages.css' %}">
+
+<main class="main">
+  <section class="mdf-order-page" id="mdf-order-payment-page">
+    <div class="mdf-order-container">
+
+      <div class="mdf-order-hero" data-aos="fade-up">
+        <div>
+          <span class="mdf-order-kicker">Secure Checkout</span>
+          <h1 class="mdf-order-title">Payment Information</h1>
+          <p class="mdf-order-subtitle">
+            Confirm your billing details and complete payment securely through Flutterwave.
+          </p>
+        </div>
+
+        <div class="mdf-order-hero-card">
+          <span>Amount Due</span>
+          <strong>₦{{ totals }}</strong>
+        </div>
+      </div>
+
+      <div class="mdf-order-panel mdf-order-form-card" data-aos="fade-up" data-aos-delay="100">
+        <aside class="mdf-order-form-aside">
+          <h2>Almost Done</h2>
+          <p>
+            You are one step away from completing your order. Please check your details carefully before payment.
+          </p>
+
+          <div class="mdf-order-trust-list">
+            <div class="mdf-order-trust-item">
+              <i class="bi bi-shield-check"></i>
+              <span>Protected payment process</span>
+            </div>
+            <div class="mdf-order-trust-item">
+              <i class="bi bi-receipt"></i>
+              <span>Order confirmation after payment</span>
+            </div>
+            <div class="mdf-order-trust-item">
+              <i class="bi bi-truck"></i>
+              <span>Fast delivery support</span>
+            </div>
+          </div>
+        </aside>
+
+        <div class="mdf-order-form-main">
+          <div class="mdf-order-form-title">
+            <h3>Billing Details</h3>
+            <p>Fill the form below and proceed to payment.</p>
+          </div>
+
+          <form action="{% url 'process_order' %}" method="post" class="mdf-order-django-form" id="mdf-order-payment-form">
+            {% csrf_token %}
+
+            {{ billing_form.as_p }}
+
+            <button type="button" class="mdf-order-primary-btn" onclick="makePayment()">
+              <i class="bi bi-credit-card"></i>
+              Make Payment
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script src="{% static 'js/main.js' %}"></script>
+<script src="https://checkout.flutterwave.com/v3.js"></script>
+
+<script>
+  const mdfOrderPaymentTotal = Number("{{ totals|default:'0' }}");
+
+  function makePayment() {
+    FlutterwaveCheckout({
+      public_key: "{{ flutterwave_public_key }}",
+      tx_ref: "{{ tx_ref }}",
+      amount: mdfOrderPaymentTotal,
+      currency: "NGN",
+      payment_options: "card, mobilemoneyghana, ussd",
+      redirect_url: "{{ flutterwave_redirect_url }}",
+
+      meta: {
+        consumer_id: "{{ request.user.id|default:'0' }}",
+        source: "billing_page"
+      },
+
+      customer: {
+        email: "{{ request.user.email|default:'modestdailyfashion@gmail.com' }}",
+        phone_number: "{{ request.session.my_shipping.shipping_phone_number|default:'09132604714' }}",
+        name: "{{ request.user.username|default:'Customer' }}"
+      },
+
+      customizations: {
+        title: "Modest Daily Fashion",
+        description: "Payment for ordered goods",
+        logo: "https://www.logolynx.com/images/logolynx/22/2239ca38f5505fbfce7e55bbc0604386.jpeg"
+      }
+    });
+  }
+</script>
+
+{% endblock %}

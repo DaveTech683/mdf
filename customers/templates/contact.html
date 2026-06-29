@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %}
+
+<!-- MDF Contact Page Styles -->
+<link rel="stylesheet" href="{% static 'css/mdf_pages.css' %}">
+
+<div class="mdf__wrap">
+
+  <!-- ── Page Hero ─────────────────────────────────────── -->
+  <div class="mdf__hero" data-aos="fade">
+    <span class="mdf__hero-eyebrow">We'd love to hear from you</span>
+    <h1 class="mdf__hero-title">Get in Touch</h1>
+    <span class="mdf__hero-rule"></span>
+  </div>
+
+  <!-- ── Contact Section ───────────────────────────────── -->
+  <section class="mdf__contact-section">
+    <div class="mdf__container">
+      <div class="mdf__contact-grid" data-aos="fade-up">
+
+        <!-- Left: Contact Info -->
+        <div class="mdf__contact-info">
+          <span class="mdf__contact-info-label">Contact Information</span>
+          <h2 class="mdf__contact-info-title">Let's Plan Your<br><em>Perfect Day</em></h2>
+          <p class="mdf__contact-info-subtitle">
+            Reach out for styling advice, order inquiries, or just to say hello — our team is here for you.
+          </p>
+
+          <div class="mdf__contact-info-items">
+
+            <div class="mdf__contact-info-item">
+              <div class="mdf__contact-info-icon">
+                <i class="bi bi-geo-alt"></i>
+              </div>
+              <div class="mdf__contact-info-text">
+                <span class="mdf__contact-info-itemlabel">Our Address</span>
+                <span class="mdf__contact-info-itemval">
+                  Lagos, Nigeria<br>Available online nationwide
+                </span>
+              </div>
+            </div>
+
+            <div class="mdf__contact-info-item">
+              <div class="mdf__contact-info-icon">
+                <i class="bi bi-telephone"></i>
+              </div>
+              <div class="mdf__contact-info-text">
+                <span class="mdf__contact-info-itemlabel">Phone</span>
+                <span class="mdf__contact-info-itemval">+234 90 000 000 00</span>
+              </div>
+            </div>
+
+            <div class="mdf__contact-info-item">
+              <div class="mdf__contact-info-icon">
+                <i class="bi bi-envelope"></i>
+              </div>
+              <div class="mdf__contact-info-text">
+                <span class="mdf__contact-info-itemlabel">Email</span>
+                <span class="mdf__contact-info-itemval">modestdailyfashion@gmail.com</span>
+              </div>
+            </div>
+
+          </div><!-- /items -->
+
+          <div class="mdf__contact-info-socials">
+            <a href="https://www.instagram.com/@modestdailyfashion" class="mdf__social-link" aria-label="Instagram">
+              <i class="bi bi-instagram"></i>
+            </a>
+            <a href="https://www.facebook.com/Modestdailyfashion" class="mdf__social-link" aria-label="Facebook">
+              <i class="bi bi-facebook"></i>
+            </a>
+            <a href="https://www.X.com/@modestdailyfash" class="mdf__social-link" aria-label="X / Twitter">
+              <i class="bi bi-twitter"></i>
+            </a>
+          </div>
+        </div><!-- /contact-info -->
+
+        <!-- Right: Contact Form -->
+        <div class="mdf__contact-form-wrap">
+          <h3 class="mdf__contact-form-title">Send Us a Message</h3>
+          <p class="mdf__contact-form-subtitle">We typically respond within 24 hours.</p>
+
+          <form action="{% url 'contact' %}" method="POST" class="mdf__contact-form">
+            {% csrf_token %}
+
+            <div class="mdf__form-row">
+              <div class="mdf__field">
+                <label for="mdf-name">First Name</label>
+                <input type="text" id="mdf-name" name="name" placeholder="e.g. Amaka">
+              </div>
+              <div class="mdf__field">
+                <label for="mdf-subject">Subject</label>
+                <input type="text" id="mdf-subject" name="subject" placeholder="e.g. Bridal shoes enquiry">
+              </div>
+            </div>
+
+            <div class="mdf__form-row">
+              <div class="mdf__field">
+                <label for="mdf-email">Email Address</label>
+                <input type="email" id="mdf-email" name="mail" placeholder="you@example.com">
+              </div>
+              <div class="mdf__field">
+                <label for="mdf-phone">Phone Number</label>
+                <input type="tel" id="mdf-phone" name="number" placeholder="+234 xxx xxxx xxx">
+              </div>
+            </div>
+
+            <div class="mdf__field">
+              <label for="mdf-message">Your Message</label>
+              <textarea id="mdf-message" name="message" placeholder="Tell us how we can help you…"></textarea>
+            </div>
+
+            <button type="submit" class="mdf__submit-btn">
+              Send Message <i class="bi bi-arrow-right"></i>
+            </button>
+
+          </form>
+        </div><!-- /contact-form-wrap -->
+
+      </div><!-- /contact-grid -->
+    </div>
+  </section>
+
+  <!-- ── Footer ────────────────────────────────────────── -->
+  <footer class="mdf__footer">
+    <div class="mdf__footer-grid">
+
+      <!-- Brand -->
+      <div>
+        <p class="mdf__footer-brand-name">MDF</p>
+        <p class="mdf__footer-brand-desc">Modest Daily Fashion — bridal essentials crafted for the modern Nigerian bride. Glamour, elegance, and precision in every detail.</p>
+      </div>
+
+      <!-- Shopping -->
+      <div>
+        <h4 class="mdf__footer-col-title">Shopping Online</h4>
+        <ul class="mdf__footer-links">
+          <li><a href="{% url 'ship_info' %}">Shipping &amp; Delivery</a></li>
+          <li><a href="{% url 'pay_info' %}">Payment Options</a></li>
+          <li><a href="{% url 'terms_info' %}">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+
+      <!-- Products -->
+      <div>
+        <h4 class="mdf__footer-col-title">Products</h4>
+        <ul class="mdf__footer-links">
+          <li><a href="{% url 'categories' 'rings' %}">Our Collections</a></li>
+          <li><a href="#">Become a Member</a></li>
+          <li><a href="{% url 'contact' %}">Your Feedback</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h4 class="mdf__footer-col-title">Contact</h4>
+        <p class="mdf__footer-contact-item">modestdailyfashion@gmail.com</p>
+        <p class="mdf__footer-contact-item"><strong>Hotline:</strong> +234 90 000 000 00</p>
+        <div class="mdf__footer-socials">
+          <a href="https://www.instagram.com/@modestdailyfashion" class="mdf__social-link" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="https://www.facebook.com/Modestdailyfashion" class="mdf__social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="https://www.X.com/@modestdailyfash" class="mdf__social-link" aria-label="X / Twitter"><i class="bi bi-twitter"></i></a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="mdf__footer-bottom">
+      <p class="mdf__footer-copy">© 2025 <strong>Modest Daily Fashion</strong>. All Rights Reserved.</p>
+      <p class="mdf__footer-copy">Designed by <a href="#">Tech_Dv</a></p>
+    </div>
+  </footer>
+
+</div><!-- /mdf__wrap -->
+
+<!-- Vendor JS -->
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/aos.js' %}"></script>
+<script src="{% static 'js/glightbox.min.js' %}"></script>
+<script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+{% endblock %}

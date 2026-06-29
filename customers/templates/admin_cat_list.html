@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Admin Categories — Modest Daily Fashion{% endblock %}
+
+{% block contents %}
+
+<link rel="stylesheet" href="{% static 'css/mdf-admin-pages.css' %}">
+<script src="{% static 'js/mdf-push.js' %}"></script>
+
+<main class="main">
+  <section class="mdf-admin-page" id="mdf-admin-categories-page">
+    <div class="mdf-admin-container">
+
+      <div class="mdf-admin-hero" data-aos="fade-up">
+        <div>
+          <span class="mdf-admin-kicker">Product Management</span>
+          <h1 class="mdf-admin-title">Categories Available</h1>
+          <p class="mdf-admin-subtitle">
+            Select a category to view, manage, and remove products under that collection.
+          </p>
+        </div>
+
+        <div class="mdf-admin-stat-card">
+          <span>Total Categories</span>
+          <strong>{{ categories|length }}</strong>
+        </div>
+      </div>
+
+      <div class="mdf-admin-notify-row" data-aos="fade-up" data-aos-delay="50"
+           style="display:flex; align-items:center; justify-content:flex-end; gap:10px; margin-bottom:20px;">
+        <button id="mdf-push-toggle" type="button" class="mdf-admin-success-btn"
+                style="display:inline-flex; align-items:center; gap:6px;">
+          <i class="bi bi-bell"></i>
+          Enable Notifications
+        </button>
+      </div>
+
+      <div class="mdf-admin-panel" data-aos="fade-up" data-aos-delay="100">
+        <div class="mdf-admin-panel-header">
+          <div>
+            <h2>Available Collections</h2>
+            <p>Click any category card to open its product list.</p>
+          </div>
+          <div class="mdf-admin-panel-icon">
+            <i class="bi bi-grid"></i>
+          </div>
+        </div>
+
+        {% if categories %}
+          <div class="mdf-admin-category-grid">
+            {% for category in categories %}
+              <a href="{% url 'admin_cat_product_list' category.category_id %}" class="mdf-admin-category-card">
+                <span><i class="bi bi-bag-heart"></i></span>
+                <h2>{{ category.name }}</h2>
+              </a>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="mdf-admin-empty-state">
+            <i class="bi bi-folder-x"></i>
+            <h3>No categories available</h3>
+            <p>Your product categories will appear here once created.</p>
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/mdf-push.js' %}"></script>
+
+{% endblock %}

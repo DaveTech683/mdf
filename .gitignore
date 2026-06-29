@@ -1,0 +1,31 @@
+.env
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+app_env/
+.env
+
+# Database
+db.sqlite3
+
+# Static/media output
+staticfiles/
+media/
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+private_key.pem
+public_key.pem

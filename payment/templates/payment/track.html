@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Track Your Orders — Modest Daily Fashion{% endblock %}
+
+{% block contents %}
+
+<link rel="stylesheet" href="{% static 'css/mdf-order-pages.css' %}">
+
+<main class="main">
+  <section class="mdf-order-page" id="mdf-order-tracking-page">
+    <div class="mdf-order-container">
+
+      <div class="mdf-order-hero" data-aos="fade-up">
+        <div>
+          <span class="mdf-order-kicker">Order Updates</span>
+          <h1 class="mdf-order-title">Track Your Orders</h1>
+          <p class="mdf-order-subtitle">
+            Follow your purchase progress, confirm shipping status, and stay updated from checkout to delivery.
+          </p>
+        </div>
+
+        <div class="mdf-order-hero-card">
+          <span>Total Orders</span>
+          <strong>{{ orders|length }}</strong>
+        </div>
+      </div>
+
+      <div class="mdf-order-panel" data-aos="fade-up" data-aos-delay="100">
+        <div class="mdf-order-panel-header">
+          <div>
+            <h2>Your Order History</h2>
+            <p>All your recent orders are shown below.</p>
+          </div>
+          <div class="mdf-order-panel-icon">
+            <i class="bi bi-truck"></i>
+          </div>
+        </div>
+
+        {% if orders %}
+        <div class="mdf-order-table-wrap">
+          <table class="mdf-order-table">
+            <thead>
+              <tr>
+                <th scope="col">Order</th>
+                <th scope="col">Price</th>
+                <th scope="col">Date Shipped</th>
+                <th scope="col">Ship Status</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for order in orders %}
+              <tr>
+                <td>
+                  <div class="mdf-order-product-list">
+                    {% for item in order.items %}
+                      <span class="mdf-order-product-pill">
+                        <i class="bi bi-bag-heart"></i>
+                        {{ item.product }}
+                      </span>
+                    {% empty %}
+                      <span class="mdf-order-product-pill">No item listed</span>
+                    {% endfor %}
+                  </div>
+                </td>
+
+                <td class="mdf-order-price">₦{{ order.order.amount_paid }}</td>
+
+                <td>
+                  {% if order.order.date_shipped %}
+                    {{ order.order.date_shipped }}
+                  {% else %}
+                    Pending
+                  {% endif %}
+                </td>
+
+                <td>
+                  {% if order.order.shipped == True %}
+                    <span class="mdf-order-status mdf-order-status--shipped">
+                      <i class="bi bi-check-circle"></i>
+                      Shipped
+                    </span>
+                  {% else %}
+                    <span class="mdf-order-status mdf-order-status--pending">
+                      <i class="bi bi-clock"></i>
+                      Not Shipped
+                    </span>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+          <div class="mdf-order-empty-state">
+            <i class="bi bi-bag-x"></i>
+            <h3>No orders yet</h3>
+            <p>Your order history will appear here after checkout.</p>
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script src="{% static 'js/main.js' %}"></script>
+
+{% endblock %}

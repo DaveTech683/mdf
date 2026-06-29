@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Checkout Summary — Modest Daily Fashion{% endblock %}
+
+{% block contents %}
+
+<link rel="stylesheet" href="{% static 'css/mdf-order-pages.css' %}">
+
+<main class="main">
+  <section class="mdf-order-page" id="mdf-order-summary-page">
+    <div class="mdf-order-container">
+
+      <div class="mdf-order-hero" data-aos="fade-up">
+        <div>
+          <span class="mdf-order-kicker">Final Review</span>
+          <h1 class="mdf-order-title">Checkout Summary</h1>
+          <p class="mdf-order-subtitle">
+            Review your selected items and total amount before completing payment.
+          </p>
+        </div>
+
+        <div class="mdf-order-hero-card">
+          <span>Total Price</span>
+          <strong>₦{{ totals }}</strong>
+        </div>
+      </div>
+
+      <div class="mdf-order-summary-grid">
+        <div class="mdf-order-summary-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="mdf-order-summary-header">
+            <h2>Your Items</h2>
+            <p>Products currently included in this checkout.</p>
+          </div>
+
+          {% if cart_products %}
+          <ul class="mdf-order-summary-list">
+            {% for product in cart_products %}
+            <li class="mdf-order-summary-item">
+              <div>
+                <h3>{{ product.name }}</h3>
+                <div class="mdf-order-summary-meta">
+                  Quantity:
+                  {% for key, value in quantities.items %}
+                    {% if key == product.product_id|slugify %}
+                      {{ value }}
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+
+              <div class="mdf-order-summary-price">
+                ₦{{ product.price }}
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <div class="mdf-order-empty-state">
+            <i class="bi bi-bag-x"></i>
+            <h3>No products found</h3>
+            <p>Your cart summary will appear here.</p>
+          </div>
+          {% endif %}
+        </div>
+
+        <aside class="mdf-order-total-card" data-aos="fade-up" data-aos-delay="160">
+          <h2>Payment Summary</h2>
+
+          <div class="mdf-order-total-row">
+            <span>Subtotal</span>
+            <strong>₦{{ totals }}</strong>
+          </div>
+
+          <div class="mdf-order-total-row">
+            <span>Delivery</span>
+            <strong>Calculated</strong>
+          </div>
+
+          <div class="mdf-order-total-final">
+            <span>Total</span>
+            <strong>₦{{ totals }}</strong>
+          </div>
+
+          <form method="POST" action="{% url 'process_order' %}">
+            {% csrf_token %}
+
+            {% if totals|floatformat:2 == "0.00" %}
+              <button 
+                type="button" 
+                class="mdf-order-primary-btn mdf-order-primary-btn--disabled" 
+                disabled
+                aria-disabled="true"
+              >
+                <i class="bi bi-lock"></i>
+                Checkout Unavailable
+              </button>
+
+              <p class="mdf-order-disabled-note">
+                Your total is ₦0. Add an item to your cart before checkout.
+              </p>
+            {% else %}
+              <button 
+                type="button" 
+                class="mdf-order-primary-btn" 
+                onclick="makePayment()"
+              >
+                <i class="bi bi-lock"></i>
+                Checkout
+              </button>
+            {% endif %}
+          </form>
+        </aside>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script src="{% static 'js/main.js' %}"></script>
+<script src="https://checkout.flutterwave.com/v3.js"></script>
+
+<script>
+  const mdfSummaryTotalRaw = "{{ totals|default:'0' }}";
+  const mdfSummaryTotal = Number(String(mdfSummaryTotalRaw).replace(/,/g, ""));
+  const mdfSummaryName = "{{ order_name|default:'Customer' }}";
+  const mdfSummaryEmail = "{{ order_email|default:'modestdailyfashion@gmail.com' }}";
+
+  function makePayment() {
+    if (!mdfSummaryTotal || mdfSummaryTotal <= 0) {
+      alert("Your total amount is ₦0. Please add an item to your cart before checkout.");
+      return;
+    }
+
+    FlutterwaveCheckout({
+      public_key: "FLWPUBK_TEST-7029388c44e6a589c6d1dc7dbdc304c6-X",
+      tx_ref: "ORDER-{{ order_name|default:'customer' }}",
+      amount: mdfSummaryTotal,
+      currency: "NGN",
+      payment_options: "card, mobilemoneyghana, ussd",
+      redirect_url: "http://localhost:8000/payment/process_order",
+      meta: {
+        consumer_id: 23,
+        source: "checkout_summary"
+      },
+      customer: {
+        email: mdfSummaryEmail,
+        phone_number: "0**********",
+        name: mdfSummaryName
+      },
+      customizations: {
+        title: "Modest Daily Fashion",
+        description: "Payment For Order",
+        logo: "https://www.logolynx.com/images/logolynx/22/2239ca38f5505fbfce7e55bbc0604386.jpeg"
+      }
+    });
+  }
+</script>
+
+{% endblock %}

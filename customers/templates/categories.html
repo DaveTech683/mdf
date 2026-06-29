@@ -1,0 +1,350 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Shop Our Collections — Modest Daily Fashion{% endblock %}
+
+{% block contents %}
+
+<main class="main">
+
+  <section id="mdf-shop-categories" class="mdf-shop-section">
+    <div class="container">
+
+      <div class="mdf-shop-layout">
+
+        <!-- ================= Sidebar / Mobile menu ================= -->
+        <aside class="mdf-shop-sidebar" data-aos="fade-up" data-aos-delay="100">
+
+          <button
+            class="mdf-shop-menu-toggle"
+            id="mdf-shop-menu-toggle"
+            type="button"
+            onclick="mdfShopToggleMenu()"
+            aria-expanded="false"
+            aria-controls="mdf-shop-menu-panel">
+            <span>
+              {% if searched %}
+                Search & Collections
+              {% elif category %}
+                Filters & Collections
+              {% else %}
+                Shop Collections
+              {% endif %}
+            </span>
+            <i class="bi bi-chevron-down" aria-hidden="true"></i>
+          </button>
+
+          <div class="mdf-shop-menu-panel" id="mdf-shop-menu-panel">
+
+            <div class="mdf-shop-panel mdf-shop-panel--menu">
+              <div class="mdf-shop-panel__header">
+                <p class="mdf-shop-panel__eyebrow">Browse</p>
+                <h3 class="mdf-shop-panel__title">Find Your Perfect Piece</h3>
+              </div>
+
+              <!-- One search box only -->
+              <form class="mdf-shop-search-form" name="search-item" method="POST" action="{% url 'search' %}">
+                {% csrf_token %}
+                <label class="visually-hidden" for="mdf-shop-search-input">Search products</label>
+                <input
+                  type="search"
+                  class="form-control mdf-shop-search-form__input"
+                  name="search"
+                  id="mdf-shop-search-input"
+                  placeholder="Search accessories…">
+                <button type="submit" class="mdf-shop-search-form__submit">
+                  <i class="bi bi-search" aria-hidden="true"></i>
+                  <span>Search</span>
+                </button>
+              </form>
+
+              <div class="mdf-shop-cat-block">
+                <label class="mdf-shop-mini-title" for="mdf-shop-collection-select">
+                  Collections
+                </label>
+
+                <select
+                  class="mdf-shop-collection-select"
+                  id="mdf-shop-collection-select"
+                  aria-label="Choose a collection"
+                  onchange="if (this.value) location.href = this.value;">
+                  <option value="">Choose a collection</option>
+
+                  {% for cat in categories %}
+                    <option
+                      value="{% url 'categories' cat %}"
+                      {% if cat == category %}selected{% endif %}>
+                      {{ cat }}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+
+              {% if category and not searched %}
+              <div class="mdf-shop-divider"></div>
+
+              <form class="mdf-shop-price-form" id="mdf-shop-price-filter-form" action="{% url 'filtering' category|urlencode %}" method="get">
+                <div class="mdf-shop-mini-title">Price Range</div>
+
+                <div class="mdf-shop-price-form__row">
+                  <div class="mdf-shop-price-form__field">
+                    <label for="mdf-shop-min-price">From</label>
+                    <input
+                      type="number"
+                      min="0"
+                      name="min_price"
+                      id="mdf-shop-min-price"
+                      class="mdf-shop-price-form__input"
+                      placeholder="0"
+                      value="{{ min_price }}">
+                  </div>
+
+                  <div class="mdf-shop-price-form__field">
+                    <label for="mdf-shop-max-price">To</label>
+                    <input
+                      type="number"
+                      min="0"
+                      name="max_price"
+                      id="mdf-shop-max-price"
+                      class="mdf-shop-price-form__input"
+                      placeholder="1000000"
+                      value="{{ max_price }}">
+                  </div>
+                </div>
+
+                {% if sort_by %}
+                  <input type="hidden" name="sort_by" value="{{ sort_by }}">
+                {% endif %}
+
+                <button type="submit" class="mdf-shop-price-form__submit">Apply Filter</button>
+              </form>
+
+              <div class="mdf-shop-divider"></div>
+
+              <div class="mdf-shop-sort-block">
+                <label class="mdf-shop-mini-title" for="mdf-shop-sort-select">Sort Products</label>
+                <select class="mdf-shop-sort__select" id="mdf-shop-sort-select" onchange="location = this.value;">
+                  <option value="{% url 'filter_all' category %}">Sort by all</option>
+                  <option value="{% url 'filter_all' category %}?sort_by=latest" {% if sort_by == 'latest' %}selected{% endif %}>Sort by latest</option>
+                  <option value="{% url 'filter_all' category %}?sort_by=cheapest" {% if sort_by == 'cheapest' %}selected{% endif %}>Sort by cheapest</option>
+                </select>
+              </div>
+              {% endif %}
+
+            </div>
+
+          </div>
+        </aside>
+        <!-- ================= /Sidebar / Mobile menu ================= -->
+
+
+        <!-- ================= Product area ================= -->
+        <section class="mdf-shop-product-area" data-aos="fade-up" data-aos-delay="100">
+
+          <div class="mdf-shop-toolbar">
+            <div>
+              {% if searched %}
+                <div class="mdf-shop-banner">
+                  <i class="bi bi-search" aria-hidden="true"></i>
+                  <strong>Your Search Results</strong>
+                </div>
+              {% elif category %}
+                <p class="mdf-shop-toolbar__eyebrow">Now showing</p>
+                <h2 class="mdf-shop-toolbar__title">Selected Products</h2>
+              {% else %}
+                <p class="mdf-shop-toolbar__eyebrow">Explore</p>
+                <h2 class="mdf-shop-toolbar__title">Shop Our Collections</h2>
+              {% endif %}
+            </div>
+          </div>
+
+          {% if searched %}
+            <div class="mdf-shop-grid">
+              {% for product in searched %}
+                <article class="mdf-shop-card">
+                  <a href="{% url 'product' product.product_id %}" class="mdf-shop-card__media" aria-label="View {{ product.name }}">
+                    <img src="{{ product.image.url }}" class="mdf-shop-card__img" alt="{{ product.name }}" loading="lazy">
+                  </a>
+                  <div class="mdf-shop-card__body">
+                    <p class="mdf-shop-card__name">{{ product.name|truncatechars:30 }}</p>
+
+                    {% if product.is_sale %}
+                      <p class="mdf-shop-card__price">
+                        <span class="mdf-shop-card__price--old">₦{{ product.price }}</span>
+                        <span class="mdf-shop-card__price--soldout">Sold Out</span>
+                      </p>
+                    {% elif product.sale_price > 0 %}
+                      <p class="mdf-shop-card__price">
+                        <span class="mdf-shop-card__price--old">₦{{ product.price }}</span>
+                        <span class="mdf-shop-card__price--new">₦{{ product.sale_price }}</span>
+                      </p>
+                    {% else %}
+                      <p class="mdf-shop-card__price">₦{{ product.price }}</p>
+                    {% endif %}
+
+                    <a href="{% url 'product' product.product_id %}" class="mdf-shop-card__cta">Buy Now</a>
+                  </div>
+                </article>
+              {% empty %}
+                <div class="mdf-shop-empty">
+                  <i class="bi bi-bag-x" aria-hidden="true"></i>
+                  <p>No product matched your search.</p>
+                  <a href="{% url 'categories' 'Earrings' %}" class="mdf-shop-empty__cta">Browse collections</a>
+                </div>
+              {% endfor %}
+            </div>
+
+          {% elif products_filt %}
+            <div class="mdf-shop-grid">
+              {% for product in products_filt %}
+                <article class="mdf-shop-card">
+                  <a href="{% url 'product' product.product_id %}" class="mdf-shop-card__media" aria-label="View {{ product.name }}">
+                    <img src="{{ product.image.url }}" class="mdf-shop-card__img" alt="{{ product.name }}" loading="lazy">
+                  </a>
+                  <div class="mdf-shop-card__body">
+                    <p class="mdf-shop-card__name">{{ product.name|truncatechars:30 }}</p>
+
+                    {% if product.is_sale %}
+                      <p class="mdf-shop-card__price">
+                        <span class="mdf-shop-card__price--old">₦{{ product.price }}</span>
+                        <span class="mdf-shop-card__price--soldout">Sold Out</span>
+                      </p>
+                    {% elif product.sale_price > 0 %}
+                      <p class="mdf-shop-card__price">
+                        <span class="mdf-shop-card__price--old">₦{{ product.price }}</span>
+                        <span class="mdf-shop-card__price--new">₦{{ product.sale_price }}</span>
+                      </p>
+                    {% else %}
+                      <p class="mdf-shop-card__price">₦{{ product.price }}</p>
+                    {% endif %}
+
+                    <a href="{% url 'product' product.product_id %}" class="mdf-shop-card__cta">Buy Now</a>
+                  </div>
+                </article>
+              {% empty %}
+                <div class="mdf-shop-empty">
+                  <i class="bi bi-bag-x" aria-hidden="true"></i>
+                  <p>No products matched this price range.</p>
+                  <a href="{% url 'categories' category %}" class="mdf-shop-empty__cta">Clear filter</a>
+                </div>
+              {% endfor %}
+            </div>
+
+          {% elif product_pagin %}
+            <div class="mdf-shop-grid">
+              {% for product in product_pagin %}
+                <article class="mdf-shop-card">
+                  <a href="{% url 'product' product.product_id %}" class="mdf-shop-card__media" aria-label="View {{ product.name }}">
+                    <img src="{{ product.image.url }}" class="mdf-shop-card__img" alt="{{ product.name }}" loading="lazy">
+                  </a>
+                  <div class="mdf-shop-card__body">
+                    <p class="mdf-shop-card__name">{{ product.name|truncatechars:30 }}</p>
+
+                    {% if product.is_sale %}
+                      <p class="mdf-shop-card__price">
+                        <span class="mdf-shop-card__price--old">₦{{ product.price }}</span>
+                        <span class="mdf-shop-card__price--soldout">Sold Out</span>
+                      </p>
+                    {% elif product.sale_price > 0 %}
+                      <p class="mdf-shop-card__price">
+                        <span class="mdf-shop-card__price--old">₦{{ product.price }}</span>
+                        <span class="mdf-shop-card__price--new">₦{{ product.sale_price }}</span>
+                      </p>
+                    {% else %}
+                      <p class="mdf-shop-card__price">₦{{ product.price }}</p>
+                    {% endif %}
+
+                    <a href="{% url 'product' product.product_id %}" class="mdf-shop-card__cta">Buy Now</a>
+                  </div>
+                </article>
+              {% empty %}
+                <div class="mdf-shop-empty">
+                  <i class="bi bi-bag-x" aria-hidden="true"></i>
+                  <p>No products to show here yet.</p>
+                  <a href="{% url 'categories' 'Earrings' %}" class="mdf-shop-empty__cta">Browse collections</a>
+                </div>
+              {% endfor %}
+            </div>
+
+          {% else %}
+            <div class="mdf-shop-empty">
+              <i class="bi bi-bag-x" aria-hidden="true"></i>
+              <p>No products to show here yet.</p>
+              <a href="{% url 'categories' 'Earrings' %}" class="mdf-shop-empty__cta">Browse collections</a>
+            </div>
+          {% endif %}
+
+          <nav class="mdf-shop-pagination" aria-label="Product pages">
+            <ul class="mdf-shop-pagination__list">
+              {% if searched %}
+                <!-- Search results do not use pagination here. -->
+
+              {% elif products_filt %}
+                {% if products_filt.has_previous %}
+                  <li class="mdf-shop-pagination__item">
+                    <a class="mdf-shop-pagination__link" href="?page={{ products_filt.previous_page_number }}{% if sort_by %}&sort_by={{ sort_by }}{% endif %}{% if min_price %}&min_price={{ min_price }}{% endif %}{% if max_price %}&max_price={{ max_price }}{% endif %}">
+                      &laquo; Previous
+                    </a>
+                  </li>
+                {% endif %}
+
+                <li class="mdf-shop-pagination__item mdf-shop-pagination__item--current">
+                  <span class="mdf-shop-pagination__link">Page {{ products_filt.number }} of {{ products_filt.paginator.num_pages }}</span>
+                </li>
+
+                {% if products_filt.has_next %}
+                  <li class="mdf-shop-pagination__item">
+                    <a class="mdf-shop-pagination__link" href="?page={{ products_filt.next_page_number }}{% if sort_by %}&sort_by={{ sort_by }}{% endif %}{% if min_price %}&min_price={{ min_price }}{% endif %}{% if max_price %}&max_price={{ max_price }}{% endif %}">
+                      Next &raquo;
+                    </a>
+                  </li>
+                {% endif %}
+
+              {% elif product_pagin %}
+                {% if product_pagin.has_previous %}
+                  <li class="mdf-shop-pagination__item">
+                    <a class="mdf-shop-pagination__link" href="?page={{ product_pagin.previous_page_number }}">
+                      &laquo; Previous
+                    </a>
+                  </li>
+                {% endif %}
+
+                <li class="mdf-shop-pagination__item mdf-shop-pagination__item--current">
+                  <span class="mdf-shop-pagination__link">Page {{ product_pagin.number }} of {{ product_pagin.paginator.num_pages }}</span>
+                </li>
+
+                {% if product_pagin.has_next %}
+                  <li class="mdf-shop-pagination__item">
+                    <a class="mdf-shop-pagination__link" href="?page={{ product_pagin.next_page_number }}">
+                      Next &raquo;
+                    </a>
+                  </li>
+                {% endif %}
+              {% endif %}
+            </ul>
+          </nav>
+
+        </section>
+        <!-- ================= /Product area ================= -->
+
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  function mdfShopToggleMenu() {
+    var toggle = document.getElementById('mdf-shop-menu-toggle');
+    var panel = document.getElementById('mdf-shop-menu-panel');
+    var isOpen = panel.classList.toggle('mdf-shop-menu-panel--open');
+
+    toggle.classList.toggle('mdf-shop-menu-toggle--open', isOpen);
+    toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  }
+</script>
+{% endblock %}

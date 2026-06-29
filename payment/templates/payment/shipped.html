@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Shipped Goods — Modest Daily Fashion{% endblock %}
+
+{% block contents %}
+
+<link rel="stylesheet" href="{% static 'css/mdf-order-pages.css' %}">
+
+<main class="main">
+  <section class="mdf-order-page" id="mdf-order-shipped-page">
+    <div class="mdf-order-container">
+
+      <div class="mdf-order-hero" data-aos="fade-up">
+        <div>
+          <span class="mdf-order-kicker">Admin Orders</span>
+          <h1 class="mdf-order-title">Shipped Goods</h1>
+          <p class="mdf-order-subtitle">
+            Review shipped orders and mark any order as unshipped when needed.
+          </p>
+        </div>
+
+        <div class="mdf-order-hero-card">
+          <span>Shipped Orders</span>
+          <strong>{{ orders|length }}</strong>
+        </div>
+      </div>
+
+      <div class="mdf-order-panel" data-aos="fade-up" data-aos-delay="100">
+        <div class="mdf-order-panel-header">
+          <div>
+            <h2>Shipment Records</h2>
+            <p>Orders that have already been marked as shipped.</p>
+          </div>
+          <div class="mdf-order-panel-icon">
+            <i class="bi bi-box-seam"></i>
+          </div>
+        </div>
+
+        {% if orders %}
+        <div class="mdf-order-table-wrap">
+          <table class="mdf-order-table">
+            <thead>
+              <tr>
+                <th scope="col">Order ID</th>
+                <th scope="col">Price</th>
+                <th scope="col">Customer Email</th>
+                <th scope="col">Date Shipped</th>
+                <th scope="col">Ship Status</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for item in orders %}
+              <tr>
+                <td>
+                  <a href="{% url 'orders' item.id %}" class="mdf-order-product-pill">
+                    <i class="bi bi-receipt"></i>
+                    Order #{{ item.id }}
+                  </a>
+                </td>
+
+                <td class="mdf-order-price">₦{{ item.amount_paid }}</td>
+                <td>{{ item.order_email }}</td>
+                <td>{{ item.date_shipped }}</td>
+
+                <td>
+                  <form method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="shipping_status" value="true">
+                    <input type="hidden" name="num" value="{{ item.id }}">
+                    <button type="submit" class="mdf-order-action-btn">
+                      <i class="bi bi-arrow-counterclockwise"></i>
+                      Mark Unshipped
+                    </button>
+                  </form>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        {% else %}
+          <div class="mdf-order-empty-state">
+            <i class="bi bi-truck"></i>
+            <h3>No shipped goods yet</h3>
+            <p>Shipped orders will appear here once available.</p>
+          </div>
+        {% endif %}
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script src="{% static 'js/main.js' %}"></script>
+
+{% endblock %}

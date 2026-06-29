@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Shipping And Delivery — Modest Daily Fashion{% endblock %}
+
+{% block contents %}
+<link rel="stylesheet" href="{% static 'css/mdf_commerce_pages.css' %}">
+
+<main class="main mdf-commerce-page" id="mdf-commerce-shipping-info-page">
+
+  <section class="mdf-commerce-hero">
+    <div class="mdf-commerce-container">
+      <span class="mdf-commerce-eyebrow"><i class="bi bi-truck"></i> Delivery Options</span>
+      <h1>Shipping And Delivery</h1>
+      <p>We work with reliable logistics partners to help your orders get to you safely, quickly, and with better delivery coverage.</p>
+    </div>
+  </section>
+
+  <section class="mdf-commerce-container">
+    <div class="mdf-commerce-info-grid">
+
+      <article class="mdf-commerce-card mdf-commerce-info-card" data-aos="fade-up" data-aos-delay="100">
+        <div class="mdf-commerce-info-icon"><i class="bi bi-box-seam"></i></div>
+        <h3>GIG Logistics</h3>
+        <p>
+          GIG Logistics is one of Africa’s leading indigenous logistics companies, known for technology-powered delivery and strong support for e-commerce businesses. Through this delivery option, Modest Daily Fashion can serve customers across Nigeria and beyond with safer, faster, and more organized shipping.
+        </p>
+      </article>
+
+      <article class="mdf-commerce-card mdf-commerce-info-card" data-aos="fade-up" data-aos-delay="180">
+        <div class="mdf-commerce-info-icon"><i class="bi bi-globe2"></i></div>
+        <h3>DHL Logistics</h3>
+        <p>
+          DHL gives us access to a wider delivery network for local and international orders. With reliable tracking, express delivery options, and strong customs experience, DHL helps make long-distance shipping smoother and more transparent for customers.
+        </p>
+      </article>
+
+      <article class="mdf-commerce-card mdf-commerce-info-card" data-aos="fade-up" data-aos-delay="260">
+        <div class="mdf-commerce-info-icon"><i class="bi bi-bicycle"></i></div>
+        <h3>Transport Riders</h3>
+        <p>
+          For faster local movement where suitable, Modest Daily Fashion may also use trusted transport riders. This helps us support quicker delivery within reachable locations when rider delivery is the best available option.
+        </p>
+      </article>
+
+    </div>
+
+    <div class="mdf-commerce-card mdf-commerce-note-box" data-aos="fade-up" data-aos-delay="320">
+      <i class="bi bi-info-circle"></i>
+      <p>
+        <strong>Note:</strong> Modest Daily Fashion will always choose the most suitable and fastest delivery method for your order based on your location, product availability, and the best logistics option at that moment.
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}

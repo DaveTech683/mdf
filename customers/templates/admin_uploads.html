@@ -1,0 +1,323 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block title %}Upload Product — Modest Daily Fashion{% endblock %}
+
+{% block contents %}
+
+<link rel="stylesheet" href="{% static 'css/mdf-admin-pages.css' %}">
+
+<main class="main">
+  <section class="mdf-admin-page" id="mdf-admin-upload-page">
+    <div class="mdf-admin-container">
+
+      <div class="mdf-admin-hero" data-aos="fade-up">
+        <div>
+          <span class="mdf-admin-kicker">New Inventory</span>
+          <h1 class="mdf-admin-title">Upload New Product</h1>
+          <p class="mdf-admin-subtitle">
+            Add a new item to your store with price, category, image, description, colors, sizes, and product features.
+          </p>
+        </div>
+
+        <div class="mdf-admin-stat-card">
+          <span>Status</span>
+          <strong>Ready</strong>
+        </div>
+      </div>
+
+      <div class="mdf-admin-panel mdf-admin-form-layout" data-aos="fade-up" data-aos-delay="100">
+        <aside class="mdf-admin-form-aside">
+          <h2>Product Details</h2>
+          <p>
+            Add clear product information so customers can easily understand the item before buying.
+          </p>
+
+          <div class="mdf-admin-form-points">
+            <div class="mdf-admin-form-point">
+              <i class="bi bi-image"></i>
+              <span>Use a clear product image</span>
+            </div>
+
+            <div class="mdf-admin-form-point">
+              <i class="bi bi-palette"></i>
+              <span>Add every available color</span>
+            </div>
+
+            <div class="mdf-admin-form-point">
+              <i class="bi bi-rulers"></i>
+              <span>Add all available sizes</span>
+            </div>
+
+            <div class="mdf-admin-form-point">
+              <i class="bi bi-pencil-square"></i>
+              <span>Write helpful product details</span>
+            </div>
+          </div>
+        </aside>
+
+        <div class="mdf-admin-form-main">
+          <form 
+            action="{% url 'admin_uploads' %}" 
+            method="POST" 
+            enctype="multipart/form-data" 
+            class="mdf-admin-upload-form"
+            id="mdf-admin-upload-form"
+          >
+            {% csrf_token %}
+
+            <div class="mdf-admin-field">
+              <label for="mdf-admin-product-category">Product Category</label>
+              <select id="mdf-admin-product-category" name="cats" required>
+                {% for category in categories %}
+                  <option value="{{ category.category_id }}">{{ category }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <div class="mdf-admin-field">
+              <label for="mdf-admin-product-name">Product Name</label>
+              <input 
+                id="mdf-admin-product-name" 
+                placeholder="Example: Pearl Bridal Earrings" 
+                type="text" 
+                name="product_name" 
+                required
+              >
+            </div>
+
+            <div class="mdf-admin-two-cols">
+              <div class="mdf-admin-field">
+                <label for="mdf-admin-product-price">Product Price</label>
+                <input 
+                  id="mdf-admin-product-price" 
+                  placeholder="Example: 25000" 
+                  type="number" 
+                  name="product_price" 
+                  min="0" 
+                  required
+                >
+              </div>
+
+              <div class="mdf-admin-field">
+                <label for="mdf-admin-product-img">Product Image</label>
+                <input 
+                  type="file" 
+                  id="mdf-admin-product-img" 
+                  name="product_img" 
+                  accept="image/*" 
+                  required
+                >
+              </div>
+            </div>
+
+            <!-- Product Colors Picker -->
+            <div class="mdf-admin-field">
+              <label for="mdf-admin-color-input">Product Color(s)</label>
+
+              <div class="mdf-admin-picker-box">
+                <div class="mdf-admin-picker-control">
+                  <input 
+                    type="text" 
+                    id="mdf-admin-color-input" 
+                    placeholder="Type a color, e.g. Gold, Silver, Pearl White"
+                    autocomplete="off"
+                  >
+                  <button type="button" class="mdf-admin-picker-add-btn" id="mdf-admin-add-color-btn">
+                    Add Color
+                  </button>
+                </div>
+
+                <div class="mdf-admin-picker-suggestions">
+                  <button type="button" data-color="Gold">Gold</button>
+                  <button type="button" data-color="Silver">Silver</button>
+                  <button type="button" data-color="Rose Gold">Rose Gold</button>
+                  <button type="button" data-color="Pearl White">Pearl White</button>
+                  <button type="button" data-color="Black">Black</button>
+                </div>
+
+                <div class="mdf-admin-chip-list" id="mdf-admin-color-chip-list"></div>
+
+                <div id="mdf-admin-color-hidden-fields"></div>
+
+                <small class="mdf-admin-help-text">
+                  Add all the colors available for this product. Click a tag to remove it.
+                </small>
+              </div>
+            </div>
+
+            <!-- Product Sizes Picker -->
+            <div class="mdf-admin-field">
+              <label for="mdf-admin-size-input">Product Size(s)</label>
+
+              <div class="mdf-admin-picker-box">
+                <div class="mdf-admin-picker-control">
+                  <input 
+                    type="text" 
+                    id="mdf-admin-size-input" 
+                    placeholder="Type a size, e.g. Small, Medium, 18 inches"
+                    autocomplete="off"
+                  >
+                  <button type="button" class="mdf-admin-picker-add-btn" id="mdf-admin-add-size-btn">
+                    Add Size
+                  </button>
+                </div>
+
+                <div class="mdf-admin-picker-suggestions">
+                  <button type="button" data-size="Small">Small</button>
+                  <button type="button" data-size="Medium">Medium</button>
+                  <button type="button" data-size="Large">Large</button>
+                  <button type="button" data-size="Free Size">Free Size</button>
+                  <button type="button" data-size="18 inches">18 inches</button>
+                </div>
+
+                <div class="mdf-admin-chip-list" id="mdf-admin-size-chip-list"></div>
+
+                <div id="mdf-admin-size-hidden-fields"></div>
+
+                <small class="mdf-admin-help-text">
+                  Add all available sizes for this product. Click a tag to remove it.
+                </small>
+              </div>
+            </div>
+
+            <div class="mdf-admin-field">
+              <label for="mdf-admin-product-description">Description</label>
+              <textarea 
+                id="mdf-admin-product-description" 
+                placeholder="Write a clear description of the product"
+                name="product_des" 
+                required
+              ></textarea>
+            </div>
+
+            <div class="mdf-admin-field">
+              <label for="mdf-admin-product-features">Extra Features</label>
+              <textarea 
+                id="mdf-admin-product-features" 
+                placeholder="Example: Lightweight, bridal-ready, premium finishing"
+                name="product_feats" 
+                required
+              ></textarea>
+            </div>
+
+            <button type="submit" class="mdf-admin-primary-btn">
+              <i class="bi bi-cloud-arrow-up"></i>
+              Upload Product
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<script src="{% static 'js/main.js' %}"></script>
+
+<script>
+  function mdfAdminCreateTagPicker(config) {
+    const input = document.getElementById(config.inputId);
+    const addButton = document.getElementById(config.buttonId);
+    const chipList = document.getElementById(config.chipListId);
+    const hiddenFields = document.getElementById(config.hiddenFieldsId);
+    const form = document.getElementById("mdf-admin-upload-form");
+
+    let values = [];
+
+    function normalizeValue(value) {
+      return value.trim().replace(/\s+/g, " ");
+    }
+
+    function renderChips() {
+      chipList.innerHTML = "";
+      hiddenFields.innerHTML = "";
+
+      values.forEach((value, index) => {
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "mdf-admin-chip";
+        chip.innerHTML = `
+          <span>${value}</span>
+          <i class="bi bi-x"></i>
+        `;
+
+        chip.addEventListener("click", function () {
+          values.splice(index, 1);
+          renderChips();
+        });
+
+        chipList.appendChild(chip);
+
+        const hiddenInput = document.createElement("input");
+        hiddenInput.type = "hidden";
+        hiddenInput.name = config.hiddenName;
+        hiddenInput.value = value;
+
+        hiddenFields.appendChild(hiddenInput);
+      });
+    }
+
+    function addValue(value) {
+      const cleanValue = normalizeValue(value);
+
+      if (!cleanValue) return;
+
+      const alreadyExists = values.some(function (item) {
+        return item.toLowerCase() === cleanValue.toLowerCase();
+      });
+
+      if (alreadyExists) {
+        input.value = "";
+        return;
+      }
+
+      values.push(cleanValue);
+      input.value = "";
+      renderChips();
+    }
+
+    addButton.addEventListener("click", function () {
+      addValue(input.value);
+    });
+
+    input.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        addValue(input.value);
+      }
+    });
+
+    document.querySelectorAll(config.suggestionSelector).forEach(function (button) {
+      button.addEventListener("click", function () {
+        addValue(button.dataset[config.suggestionDataKey]);
+      });
+    });
+
+    form.addEventListener("submit", function () {
+      addValue(input.value);
+    });
+  }
+
+  mdfAdminCreateTagPicker({
+    inputId: "mdf-admin-color-input",
+    buttonId: "mdf-admin-add-color-btn",
+    chipListId: "mdf-admin-color-chip-list",
+    hiddenFieldsId: "mdf-admin-color-hidden-fields",
+    hiddenName: "product_colors",
+    suggestionSelector: "[data-color]",
+    suggestionDataKey: "color"
+  });
+
+  mdfAdminCreateTagPicker({
+    inputId: "mdf-admin-size-input",
+    buttonId: "mdf-admin-add-size-btn",
+    chipListId: "mdf-admin-size-chip-list",
+    hiddenFieldsId: "mdf-admin-size-hidden-fields",
+    hiddenName: "product_sizes",
+    suggestionSelector: "[data-size]",
+    suggestionDataKey: "size"
+  });
+</script>
+
+{% endblock %}

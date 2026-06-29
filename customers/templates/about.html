@@ -1,0 +1,284 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contents %}
+
+<!-- MDF About Page Styles -->
+<link rel="stylesheet" href="{% static 'css/mdf_pages.css' %}">
+
+<div class="mdf__wrap">
+
+  <!-- ── Page Hero ─────────────────────────────────────── -->
+  <div class="mdf__hero" data-aos="fade">
+    <span class="mdf__hero-eyebrow">Modest Daily Fashion</span>
+    <h1 class="mdf__hero-title">About Us</h1>
+    <span class="mdf__hero-rule"></span>
+  </div>
+
+  <!-- ── About Section ─────────────────────────────────── -->
+  <section class="mdf__about-section">
+    <div class="mdf__container">
+      <div class="mdf__about-grid">
+
+        <!-- Left: Brand Panel -->
+        <div class="mdf__brand-panel" data-aos="fade-up" data-aos-delay="100">
+
+          <div class="mdf__brand-logo-wrap">
+            <img src="{% static 'img/white-modest-logo.png' %}" alt="Modest Daily Fashion logo">
+          </div>
+
+          <span class="mdf__brand-label">Our Story</span>
+          <h2 class="mdf__brand-title">Where Every Detail<br><em>Becomes a Memory</em></h2>
+          <div class="mdf__brand-divider"></div>
+
+          <p class="mdf__brand-body">
+            Welcome to Modest Daily Fashion — your one‑stop destination for everything bridal.
+            We curate a sophisticated selection of essentials for brides, bridesmaids, and the
+            entire wedding party: luxurious shoes, exquisite jewellery, bespoke bouquets, and
+            stunning clutch purses — all chosen to elevate your most unforgettable day.
+          </p>
+          <p class="mdf__brand-body">
+            At MDF, we pride ourselves on exceptional service and a personal touch that turns
+            your wedding vision into reality with elegance, precision, and care.
+          </p>
+
+          <div class="mdf__brand-stats">
+            <div class="mdf__stat">
+              <span class="mdf__stat-num">500+</span>
+              <span class="mdf__stat-label">Products</span>
+            </div>
+            <div class="mdf__stat">
+              <span class="mdf__stat-num">2k+</span>
+              <span class="mdf__stat-label">Happy Brides</span>
+            </div>
+            <div class="mdf__stat">
+              <span class="mdf__stat-num">4.9★</span>
+              <span class="mdf__stat-label">Rating</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Gallery Panel -->
+        <div class="mdf__gallery-panel" data-aos="fade-up" data-aos-delay="200">
+
+          <!-- Category Nav -->
+          <nav class="mdf__cat-nav" aria-label="Product categories">
+            <a href="#mdf-gallery" class="mdf__cat-btn mdf__active" onclick="mdfSetCategory('shoes', this); return false;">Shoes</a>
+            <a href="#mdf-gallery" class="mdf__cat-btn" onclick="mdfSetCategory('accessories', this); return false;">Jewellery</a>
+            <a href="#mdf-gallery" class="mdf__cat-btn" onclick="mdfSetCategory('bouquets', this); return false;">Bouquets</a>
+            <a href="#mdf-gallery" class="mdf__cat-btn" onclick="mdfSetCategory('purses', this); return false;">Clutch Purses</a>
+          </nav>
+
+          <!-- Swiper -->
+          <div class="mdf__swiper-wrap" id="mdf-gallery">
+            <div class="swiper mdf__about-swiper">
+              <script type="application/json" class="swiper-config">
+                {
+                  "loop": true,
+                  "speed": 700,
+                  "autoplay": { "delay": 5000, "disableOnInteraction": false },
+                  "slidesPerView": 1,
+                  "pagination": {
+                    "el": ".swiper-pagination",
+                    "type": "bullets",
+                    "clickable": true
+                  }
+                }
+              </script>
+
+              <div class="swiper-wrapper">
+
+                <!-- Slide 1 -->
+                <div class="swiper-slide">
+                  <div class="mdf__slide-desktop">
+                    <img id="mdf-pid1" src="{% static 'img/imaging/shoe-img-1.jfif' %}" alt="Bridal product">
+                    <img id="mdf-pid2" src="{% static 'img/imaging/shoe-img-2.jfif' %}" alt="Bridal product">
+                    <img id="mdf-pid3" src="{% static 'img/imaging/shoe-img-3.jfif' %}" alt="Bridal product">
+                    <img id="mdf-pid4" src="{% static 'img/imaging/shoe-img-4.jfif' %}" alt="Bridal product">
+                  </div>
+                  <div class="mdf__slide-mobile">
+                    <img id="mdf-pid1m" src="{% static 'img/imaging/shoe-img-1.jfif' %}" alt="Bridal product">
+                  </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="swiper-slide">
+                  <div class="mdf__slide-desktop">
+                    <img id="mdf-pid5" src="{% static 'img/imaging/shoe-img-5.jfif' %}" alt="Bridal product">
+                    <img id="mdf-pid6" src="{% static 'img/imaging/shoe-img-6.jfif' %}" alt="Bridal product">
+                    <img id="mdf-pid7" src="{% static 'img/imaging/shoe-img-7.jfif' %}" alt="Bridal product">
+                    <img id="mdf-pid8" src="{% static 'img/imaging/shoe-img-8.jfif' %}" alt="Bridal product">
+                  </div>
+                  <div class="mdf__slide-mobile">
+                    <img id="mdf-pid5m" src="{% static 'img/imaging/shoe-img-5.jfif' %}" alt="Bridal product">
+                  </div>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="swiper-slide">
+                  <div class="mdf__slide-desktop">
+                    <img id="mdf-pid9" src="{% static 'img/imaging/shoe-img-9.jfif' %}" alt="Bridal product">
+                    <img id="mdf-pid10" src="{% static 'img/imaging/shoe-img-10.jfif' %}" alt="Bridal product">
+                    <img id="mdf-pid11" src="{% static 'img/imaging/shoe-img-11.jfif' %}" alt="Bridal product">
+                    <img id="mdf-pid12" src="{% static 'img/imaging/shoe-img-12.jfif' %}" alt="Bridal product">
+                  </div>
+                  <div class="mdf__slide-mobile">
+                    <img id="mdf-pid10m" src="{% static 'img/imaging/shoe-img-10.jfif' %}" alt="Bridal product">
+                  </div>
+                </div>
+
+              </div><!-- /swiper-wrapper -->
+              <div class="swiper-pagination"></div>
+            </div>
+          </div><!-- /mdf__swiper-wrap -->
+
+          <!-- CTA Strip -->
+          <div class="mdf__cta-strip">
+            <p class="mdf__cta-text">Ready to explore our full collection?</p>
+            <a href="{% url 'categories' 'Earrings' %}" class="mdf__cta-link">See All Collections</a>
+          </div>
+
+        </div>
+      </div><!-- /mdf__about-grid -->
+    </div>
+  </section>
+
+  <!-- ── Newsletter ─────────────────────────────────────── -->
+  <div class="mdf__newsletter">
+    <div class="mdf__container">
+      <h3 class="mdf__newsletter-title">Stay in the Loop</h3>
+      <p class="mdf__newsletter-sub">Subscribe and be the first to hear about new arrivals, exclusive offers, and bridal inspiration.</p>
+      <form action="#" method="POST" class="mdf__newsletter-form">
+        {% csrf_token %}
+        {{ newsform.email }}
+        <input type="submit" value="Subscribe">
+      </form>
+    </div>
+  </div>
+
+  <!-- ── Footer ────────────────────────────────────────── -->
+  <footer class="mdf__footer">
+    <div class="mdf__footer-grid">
+
+      <!-- Brand -->
+      <div>
+        <p class="mdf__footer-brand-name">MDF</p>
+        <p class="mdf__footer-brand-desc">Modest Daily Fashion — bridal essentials crafted for the modern Nigerian bride. Glamour, elegance, and precision in every detail.</p>
+      </div>
+
+      <!-- Shopping -->
+      <div>
+        <h4 class="mdf__footer-col-title">Shopping Online</h4>
+        <ul class="mdf__footer-links">
+          <li><a href="{% url 'ship_info' %}">Shipping &amp; Delivery</a></li>
+          <li><a href="{% url 'pay_info' %}">Payment Options</a></li>
+          <li><a href="{% url 'terms_info' %}">Terms &amp; Conditions</a></li>
+        </ul>
+      </div>
+
+      <!-- Products -->
+      <div>
+        <h4 class="mdf__footer-col-title">Products</h4>
+        <ul class="mdf__footer-links">
+          <li><a href="{% url 'categories' 'rings' %}">Our Collections</a></li>
+          <li><a href="#">Become a Member</a></li>
+          <li><a href="{% url 'contact' %}">Your Feedback</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h4 class="mdf__footer-col-title">Contact</h4>
+        <p class="mdf__footer-contact-item">modestdailyfashion@gmail.com</p>
+        <p class="mdf__footer-contact-item"><strong>Hotline:</strong> +234 90 000 000 00</p>
+        <div class="mdf__footer-socials">
+          <a href="https://www.instagram.com/@modestdailyfashion" class="mdf__social-link" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+          <a href="https://www.facebook.com/Modestdailyfashion" class="mdf__social-link" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+          <a href="https://www.X.com/@modestdailyfash" class="mdf__social-link" aria-label="X / Twitter"><i class="bi bi-twitter"></i></a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="mdf__footer-bottom">
+      <p class="mdf__footer-copy">© 2025 <strong>Modest Daily Fashion</strong>. All Rights Reserved.</p>
+      <p class="mdf__footer-copy">Designed by <a href="#">Tech_Dv</a></p>
+    </div>
+  </footer>
+
+</div><!-- /mdf__wrap -->
+
+<!-- Vendor JS -->
+<script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'js/aos.js' %}"></script>
+<script src="{% static 'js/glightbox.min.js' %}"></script>
+<script src="{% static 'js/swiper-bundle.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+<script>
+  /* ── Category image data ── */
+  const mdfImages = {
+    shoes: [
+      "{% static 'img/imaging/shoe-img-1.jfif' %}","{% static 'img/imaging/shoe-img-2.jfif' %}",
+      "{% static 'img/imaging/shoe-img-3.jfif' %}","{% static 'img/imaging/shoe-img-4.jfif' %}",
+      "{% static 'img/imaging/shoe-img-5.jfif' %}","{% static 'img/imaging/shoe-img-6.jfif' %}",
+      "{% static 'img/imaging/shoe-img-7.jfif' %}","{% static 'img/imaging/shoe-img-8.jfif' %}",
+      "{% static 'img/imaging/shoe-img-9.jfif' %}","{% static 'img/imaging/shoe-img-10.jfif' %}",
+      "{% static 'img/imaging/shoe-img-11.jfif' %}","{% static 'img/imaging/shoe-img-12.jfif' %}"
+    ],
+    accessories: [
+      "{% static 'img/imaging/earring-img-1.jfif' %}","{% static 'img/imaging/earring-img-2.jfif' %}",
+      "{% static 'img/imaging/Diamond necklace.jfif' %}","{% static 'img/imaging/earring-img-3.jfif' %}",
+      "{% static 'img/imaging/earring-img-1.jfif' %}","{% static 'img/imaging/earring-img-3.jfif' %}",
+      "{% static 'img/imaging/earring-img-2.jfif' %}","{% static 'img/imaging/earring-img-3.jfif' %}",
+      "{% static 'img/imaging/earring-img-1.jfif' %}","{% static 'img/imaging/Diamond necklace.jfif' %}",
+      "{% static 'img/imaging/earring-img-1.jfif' %}","{% static 'img/imaging/earring-img-2.jfif' %}"
+    ],
+    bouquets: [
+      "{% static 'img/imaging/bouquet-img-1.jfif' %}","{% static 'img/imaging/bouquet-img-2.jfif' %}",
+      "{% static 'img/imaging/bouquet-img-3.jfif' %}","{% static 'img/imaging/bouquet-img-4.jfif' %}",
+      "{% static 'img/imaging/bouquet-img-5.jfif' %}","{% static 'img/imaging/bouquet-img-6.jfif' %}",
+      "{% static 'img/imaging/bouquet-img-1.jfif' %}","{% static 'img/imaging/bouquet-img-6.jfif' %}",
+      "{% static 'img/imaging/bouquet-img-2.jfif' %}","{% static 'img/imaging/bouquet-img-3.jfif' %}",
+      "{% static 'img/imaging/bouquet-img-4.jfif' %}","{% static 'img/imaging/bouquet-img-5.jfif' %}"
+    ],
+    purses: [
+      "{% static 'img/imaging/bag-img-1.jfif' %}","{% static 'img/imaging/bag-img-2.jfif' %}",
+      "{% static 'img/imaging/bag-img-3.jfif' %}","{% static 'img/imaging/bag-img-4.jfif' %}",
+      "{% static 'img/imaging/bag-img-5.jfif' %}","{% static 'img/imaging/bag-img-6.jfif' %}",
+      "{% static 'img/imaging/bag-img-7.jfif' %}","{% static 'img/imaging/bag-img-8.jfif' %}",
+      "{% static 'img/imaging/bag-img-9.jfif' %}","{% static 'img/imaging/bag-img-10.jfif' %}",
+      "{% static 'img/imaging/bag-img-11.jfif' %}","{% static 'img/imaging/bag-img-12.jfif' %}"
+    ]
+  };
+
+  /* Desktop ids map: slot 0–11 → grid positions across 3 slides */
+  const mdfDesktopIds = [
+    'mdf-pid1','mdf-pid2','mdf-pid3','mdf-pid4',
+    'mdf-pid5','mdf-pid6','mdf-pid7','mdf-pid8',
+    'mdf-pid9','mdf-pid10','mdf-pid11','mdf-pid12'
+  ];
+  const mdfMobileIds = ['mdf-pid1m','mdf-pid5m','mdf-pid10m'];
+
+  function mdfSetCategory(cat, clickedBtn) {
+    const imgs = mdfImages[cat];
+    if (!imgs) return;
+
+    /* Update desktop grid images */
+    mdfDesktopIds.forEach((id, i) => {
+      const el = document.getElementById(id);
+      if (el) el.src = imgs[i] || imgs[0];
+    });
+
+    /* Update mobile single images (one per slide) */
+    [0, 4, 9].forEach((srcIdx, i) => {
+      const el = document.getElementById(mdfMobileIds[i]);
+      if (el) el.src = imgs[srcIdx] || imgs[0];
+    });
+
+    /* Toggle active button */
+    document.querySelectorAll('.mdf__cat-btn').forEach(b => b.classList.remove('mdf__active'));
+    if (clickedBtn) clickedBtn.classList.add('mdf__active');
+  }
+</script>
+
+{% endblock %}
