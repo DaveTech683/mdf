@@ -38,7 +38,7 @@
 
         <div class="mdf-auth-right">
 
-          {{-- Facebook form lives HERE, outside the signin form --}}
+          {# Facebook form lives outside the signin form to avoid illegal nesting #}
           <form id="facebook-login-form"
                 method="POST"
                 action="{% url 'social:begin' 'facebook' %}">
@@ -92,7 +92,7 @@
             </div>
 
             <div class="mdf-auth-social-row">
-              {{-- form="facebook-login-form" wires this button to the outer form --}}
+              {# form attribute wires this button to the facebook form above #}
               <button type="submit"
                       form="facebook-login-form"
                       class="mdf-auth-social-btn mdf-auth-social-facebook">
