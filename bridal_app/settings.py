@@ -279,10 +279,14 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # =========================
 
 AUTHENTICATION_BACKENDS = [
+    'social_core.backends.google.GoogleOAuth2',
     "social_core.backends.facebook.FacebookOAuth2",
-    "social_core.backends.instagram.InstagramOAuth2",
     "django.contrib.auth.backends.ModelBackend",
 ]
+# Google OAuth credentials
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY    = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_KEY')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = os.environ.get('SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET')
+SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE  = ['email', 'profile']
 
 LOGIN_URL = "signin"
 LOGIN_REDIRECT_URL = "home"

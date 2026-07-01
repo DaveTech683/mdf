@@ -44,7 +44,6 @@
   color: #fff;
   background:
     linear-gradient(145deg, rgba(66, 24, 52, 0.94), rgba(94, 43, 75, 0.94));
-    
   background-size: cover;
   background-position: center;
   overflow: hidden;
@@ -291,6 +290,7 @@
   gap: 12px;
 }
 
+/* ── Base social button ─────────────────────────────────── */
 .mdf-auth-social-btn {
   min-height: 48px;
   display: inline-flex;
@@ -298,26 +298,61 @@
   justify-content: center;
   gap: 9px;
   border-radius: 14px;
+  border: none;
   text-decoration: none;
   font-size: 0.88rem;
   font-weight: 600;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease,
+              background 0.25s ease, color 0.25s ease;
 }
 
+/* ── Instagram ──────────────────────────────────────────── */
 .mdf-auth-social-instagram {
   color: #fff;
   background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
 }
 
+/* ── Facebook ───────────────────────────────────────────── */
 .mdf-auth-social-facebook {
   color: #fff;
   background: #1877f2;
 }
 
-.mdf-auth-social-btn:hover {
-  transform: translateY(-2px);
+.mdf-auth-social-facebook:hover {
+  background: #1464d0;
   color: #fff;
-  box-shadow: 0 10px 24px rgba(59, 24, 48, 0.18);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(24, 119, 242, 0.32);
+}
+
+/* ── Google ─────────────────────────────────────────────── */
+.mdf-auth-social-google {
+  color: #3c3c3c;
+  background: #ffffff;
+  border: 1.5px solid #e0e0e0;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.07);
+}
+
+.mdf-auth-social-google:hover {
+  background: #f7f7f7;
+  color: #1a1a1a;
+  border-color: #c8c8c8;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+}
+
+/* ── Shared hover for Instagram (colour kept white) ─────── */
+.mdf-auth-social-instagram:hover {
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(131, 58, 180, 0.32);
+}
+
+/* ── Focus-visible ring for all social buttons ──────────── */
+.mdf-auth-social-btn:focus-visible {
+  outline: 3px solid rgba(189, 149, 81, 0.45);
+  outline-offset: 3px;
 }
 
 .mdf-auth-switch-text {
@@ -383,7 +418,7 @@
   box-shadow: 0 0 0 4px rgba(189, 149, 81, 0.16);
 }
 
-/* Tablet */
+/* ── Tablet ─────────────────────────────────────────────── */
 @media (max-width: 991px) {
   .mdf-auth-page {
     padding: 60px 16px;
@@ -410,7 +445,7 @@
   }
 }
 
-/* Mobile */
+/* ── Mobile ─────────────────────────────────────────────── */
 @media (max-width: 575px) {
   .mdf-auth-page {
     padding: 38px 12px;
@@ -450,7 +485,7 @@
   }
 }
 
-/* Very small phones */
+/* ── Very small phones ──────────────────────────────────── */
 @media (max-width: 380px) {
   .mdf-auth-left,
   .mdf-auth-right {
@@ -463,7 +498,7 @@
   }
 }
 
-/* Reduced motion */
+/* ── Reduced motion ─────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .mdf-auth-input,
   .mdf-auth-django-field-wrap input,

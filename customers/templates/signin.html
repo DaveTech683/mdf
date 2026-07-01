@@ -38,10 +38,16 @@
 
         <div class="mdf-auth-right">
 
-          {# Facebook form lives outside the signin form to avoid illegal nesting #}
+          {# Social forms live outside the signin form to avoid illegal nesting #}
           <form id="facebook-login-form"
                 method="POST"
                 action="{% url 'social:begin' 'facebook' %}">
+            {% csrf_token %}
+          </form>
+
+          <form id="google-login-form"
+                method="POST"
+                action="{% url 'social:begin' 'google-oauth2' %}">
             {% csrf_token %}
           </form>
 
@@ -92,12 +98,18 @@
             </div>
 
             <div class="mdf-auth-social-row">
-              {# form attribute wires this button to the facebook form above #}
               <button type="submit"
                       form="facebook-login-form"
                       class="mdf-auth-social-btn mdf-auth-social-facebook">
                 <i class="bi bi-facebook"></i>
                 Facebook
+              </button>
+
+              <button type="submit"
+                      form="google-login-form"
+                      class="mdf-auth-social-btn mdf-auth-social-google">
+                <i class="bi bi-google"></i>
+                Google
               </button>
             </div>
 
