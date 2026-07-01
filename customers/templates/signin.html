@@ -25,12 +25,10 @@
               <i class="bi bi-bag-heart"></i>
               <span>View your orders and saved products</span>
             </div>
-
             <div class="mdf-auth-benefit-item">
               <i class="bi bi-shield-check"></i>
               <span>Secure and easy account access</span>
             </div>
-
             <div class="mdf-auth-benefit-item">
               <i class="bi bi-stars"></i>
               <span>Enjoy a smoother shopping experience</span>
@@ -39,6 +37,13 @@
         </div>
 
         <div class="mdf-auth-right">
+
+          {{-- Facebook form lives HERE, outside the signin form --}}
+          <form id="facebook-login-form"
+                method="POST"
+                action="{% url 'social:begin' 'facebook' %}">
+            {% csrf_token %}
+          </form>
 
           <form method="POST" action="{% url 'signin' %}" class="mdf-auth-form" id="mdf-auth-login-form">
             {% csrf_token %}
@@ -52,11 +57,11 @@
               <label for="mdf-auth-login-username">Username</label>
               <div class="mdf-auth-input-wrap">
                 <i class="bi bi-person"></i>
-                <input 
-                  class="mdf-auth-input" 
-                  type="text" 
-                  name="username" 
-                  id="mdf-auth-login-username" 
+                <input
+                  class="mdf-auth-input"
+                  type="text"
+                  name="username"
+                  id="mdf-auth-login-username"
                   placeholder="Enter your username"
                   required
                 >
@@ -67,11 +72,11 @@
               <label for="mdf-auth-login-password">Password</label>
               <div class="mdf-auth-input-wrap">
                 <i class="bi bi-lock"></i>
-                <input 
-                  class="mdf-auth-input" 
-                  type="password" 
-                  name="password" 
-                  id="mdf-auth-login-password" 
+                <input
+                  class="mdf-auth-input"
+                  type="password"
+                  name="password"
+                  id="mdf-auth-login-password"
                   placeholder="Enter your password"
                   required
                 >
@@ -87,18 +92,13 @@
             </div>
 
             <div class="mdf-auth-social-row">
-              <!-- <a href="{% url 'social:begin' 'instagram' %}" class="mdf-auth-social-btn mdf-auth-social-instagram">
-                <i class="bi bi-instagram"></i>
-                Instagram
-              </a> -->
-
-              <form method="POST" action="{% url 'social:begin' 'facebook' %}">
-                {% csrf_token %}
-                <button type="submit" class="mdf-auth-social-btn mdf-auth-social-facebook">
-                  <i class="bi bi-facebook"></i>
-                  Facebook
-                </button>
-              </form>
+              {{-- form="facebook-login-form" wires this button to the outer form --}}
+              <button type="submit"
+                      form="facebook-login-form"
+                      class="mdf-auth-social-btn mdf-auth-social-facebook">
+                <i class="bi bi-facebook"></i>
+                Facebook
+              </button>
             </div>
 
             <p class="mdf-auth-switch-text">
@@ -113,9 +113,7 @@
           </form>
 
         </div>
-
       </div>
-
     </div>
   </section>
 
