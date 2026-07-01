@@ -1,0 +1,479 @@
+/* ==========================================================
+   MODEST DAILY FASHION AUTH PAGES
+   Unique prefix: mdf-auth-
+   This prevents conflict with existing website CSS.
+   ========================================================== */
+
+#mdf-auth-login-page,
+#mdf-auth-signup-page {
+  width: 100%;
+}
+
+.mdf-auth-page {
+  min-height: 100vh;
+  padding: 80px 16px;
+  background:
+    radial-gradient(circle at top left, rgba(189, 149, 81, 0.18), transparent 35%),
+    linear-gradient(135deg, #fffaf3 0%, #f8efe7 45%, #f4e7dc 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mdf-auth-container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.mdf-auth-card {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(189, 149, 81, 0.22);
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 25px 70px rgba(54, 24, 44, 0.14);
+  backdrop-filter: blur(16px);
+}
+
+.mdf-auth-left {
+  position: relative;
+  padding: 64px 48px;
+  color: #fff;
+  background:
+    linear-gradient(145deg, rgba(66, 24, 52, 0.94), rgba(94, 43, 75, 0.94));
+    
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+}
+
+.mdf-auth-left::before {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  right: -100px;
+  top: -100px;
+  background: rgba(189, 149, 81, 0.22);
+  border-radius: 50%;
+}
+
+.mdf-auth-left::after {
+  content: "";
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  left: -70px;
+  bottom: -70px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 50%;
+}
+
+.mdf-auth-eyebrow {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 15px;
+  margin-bottom: 22px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.13);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.mdf-auth-title {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 18px;
+  max-width: 420px;
+  font-size: clamp(2rem, 4vw, 3.55rem);
+  line-height: 1.08;
+  font-weight: 700;
+  color: #fff;
+}
+
+.mdf-auth-subtitle {
+  position: relative;
+  z-index: 1;
+  max-width: 440px;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.mdf-auth-benefits {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 14px;
+  margin-top: 38px;
+}
+
+.mdf-auth-benefit-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.mdf-auth-benefit-item i {
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: #3b1830;
+  background: #d9b46a;
+}
+
+.mdf-auth-right {
+  padding: 54px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mdf-auth-form {
+  width: 100%;
+  max-width: 430px;
+}
+
+.mdf-auth-form-header {
+  margin-bottom: 30px;
+  text-align: left;
+}
+
+.mdf-auth-form-header h2 {
+  margin: 0 0 8px;
+  color: #3b1830;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.mdf-auth-form-header p {
+  margin: 0;
+  color: #8a6f7d;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.mdf-auth-field-group {
+  margin-bottom: 18px;
+}
+
+.mdf-auth-field-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #3b1830;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.mdf-auth-input-wrap {
+  position: relative;
+}
+
+.mdf-auth-input-wrap i {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #bd9551;
+  font-size: 1rem;
+}
+
+.mdf-auth-input,
+.mdf-auth-django-field-wrap input {
+  width: 100%;
+  min-height: 52px;
+  border: 1px solid rgba(59, 24, 48, 0.14);
+  border-radius: 15px;
+  padding: 0 16px;
+  background: #fff;
+  color: #3b1830;
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.mdf-auth-input-wrap .mdf-auth-input {
+  padding-left: 45px;
+}
+
+.mdf-auth-input::placeholder,
+.mdf-auth-django-field-wrap input::placeholder {
+  color: rgba(59, 24, 48, 0.42);
+}
+
+.mdf-auth-input:focus,
+.mdf-auth-django-field-wrap input:focus {
+  border-color: #bd9551;
+  box-shadow: 0 0 0 4px rgba(189, 149, 81, 0.16);
+}
+
+.mdf-auth-help-text {
+  display: block;
+  margin-top: 7px;
+  color: #8a6f7d;
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+.mdf-auth-main-btn {
+  width: 100%;
+  min-height: 52px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #3b1830, #5f2f4e);
+  color: #fff;
+  font-size: 0.92rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 12px 28px rgba(59, 24, 48, 0.22);
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.mdf-auth-main-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 34px rgba(59, 24, 48, 0.28);
+  background: linear-gradient(135deg, #bd9551, #d9b46a);
+  color: #3b1830;
+}
+
+.mdf-auth-main-btn:focus-visible {
+  outline: 3px solid rgba(189, 149, 81, 0.35);
+  outline-offset: 3px;
+}
+
+.mdf-auth-divider {
+  position: relative;
+  margin: 28px 0;
+  text-align: center;
+}
+
+.mdf-auth-divider::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(59, 24, 48, 0.12);
+}
+
+.mdf-auth-divider span {
+  position: relative;
+  z-index: 1;
+  padding: 0 14px;
+  background: #fff;
+  color: #8a6f7d;
+  font-size: 0.8rem;
+}
+
+.mdf-auth-social-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.mdf-auth-social-btn {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  border-radius: 14px;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+}
+
+.mdf-auth-social-instagram {
+  color: #fff;
+  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+}
+
+.mdf-auth-social-facebook {
+  color: #fff;
+  background: #1877f2;
+}
+
+.mdf-auth-social-btn:hover {
+  transform: translateY(-2px);
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(59, 24, 48, 0.18);
+}
+
+.mdf-auth-switch-text {
+  margin: 26px 0 0;
+  color: #8a6f7d;
+  text-align: center;
+  font-size: 0.92rem;
+}
+
+.mdf-auth-switch-text a {
+  color: #3b1830;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.mdf-auth-switch-text a:hover {
+  color: #bd9551;
+}
+
+.mdf-auth-hidden-link {
+  display: none;
+}
+
+.mdf-auth-error-box {
+  margin-bottom: 22px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: rgba(192, 57, 43, 0.09);
+  border: 1px solid rgba(192, 57, 43, 0.18);
+  color: #9f2f24;
+}
+
+.mdf-auth-error-box p {
+  margin: 0 0 8px;
+  font-size: 0.86rem;
+  line-height: 1.5;
+}
+
+.mdf-auth-error-box p:last-child {
+  margin-bottom: 0;
+}
+
+/* Django form fields sometimes render with default ids/classes.
+   This keeps them styled without touching global input styles. */
+#mdf-auth-signup-form input[type="text"],
+#mdf-auth-signup-form input[type="email"],
+#mdf-auth-signup-form input[type="password"] {
+  width: 100%;
+  min-height: 52px;
+  border: 1px solid rgba(59, 24, 48, 0.14);
+  border-radius: 15px;
+  padding: 0 16px;
+  background: #fff;
+  color: #3b1830;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+#mdf-auth-signup-form input[type="text"]:focus,
+#mdf-auth-signup-form input[type="email"]:focus,
+#mdf-auth-signup-form input[type="password"]:focus {
+  border-color: #bd9551;
+  box-shadow: 0 0 0 4px rgba(189, 149, 81, 0.16);
+}
+
+/* Tablet */
+@media (max-width: 991px) {
+  .mdf-auth-page {
+    padding: 60px 16px;
+  }
+
+  .mdf-auth-card {
+    grid-template-columns: 1fr;
+  }
+
+  .mdf-auth-left {
+    padding: 46px 34px;
+  }
+
+  .mdf-auth-right {
+    padding: 42px 34px;
+  }
+
+  .mdf-auth-title {
+    max-width: 100%;
+  }
+
+  .mdf-auth-subtitle {
+    max-width: 100%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 575px) {
+  .mdf-auth-page {
+    padding: 38px 12px;
+    align-items: flex-start;
+  }
+
+  .mdf-auth-card {
+    border-radius: 22px;
+  }
+
+  .mdf-auth-left {
+    padding: 38px 24px;
+  }
+
+  .mdf-auth-right {
+    padding: 34px 22px;
+  }
+
+  .mdf-auth-form-header h2 {
+    font-size: 1.65rem;
+  }
+
+  .mdf-auth-social-row {
+    grid-template-columns: 1fr;
+  }
+
+  .mdf-auth-benefits {
+    margin-top: 28px;
+  }
+
+  .mdf-auth-benefit-item {
+    align-items: flex-start;
+  }
+
+  .mdf-auth-main-btn {
+    min-height: 50px;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+  .mdf-auth-left,
+  .mdf-auth-right {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+  .mdf-auth-title {
+    font-size: 1.8rem;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .mdf-auth-input,
+  .mdf-auth-django-field-wrap input,
+  .mdf-auth-main-btn,
+  .mdf-auth-social-btn {
+    transition: none;
+  }
+
+  .mdf-auth-main-btn:hover,
+  .mdf-auth-social-btn:hover {
+    transform: none;
+  }
+}

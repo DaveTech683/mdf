@@ -4,10 +4,13 @@
   "builds": [
     {
       "src": "bridal_app/wsgi.py",
-      "use": "@vercel/python@latest"
+      "use": "@vercel/python"
     }
   ],
   "routes": [
+    {
+      "handle": "filesystem"
+    },
     {
       "src": "/(.*)",
       "dest": "bridal_app/wsgi.py"

@@ -92,10 +92,13 @@
                 Instagram
               </a> -->
 
-              <a href="{% url 'social:begin' 'facebook' %}" class="mdf-auth-social-btn mdf-auth-social-facebook">
-                <i class="bi bi-facebook"></i>
-                Facebook
-              </a>
+              <form method="POST" action="{% url 'social:begin' 'facebook' %}">
+                {% csrf_token %}
+                <button type="submit" class="mdf-auth-social-btn mdf-auth-social-facebook">
+                  <i class="bi bi-facebook"></i>
+                  Facebook
+                </button>
+              </form>
             </div>
 
             <p class="mdf-auth-switch-text">

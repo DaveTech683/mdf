@@ -20,7 +20,7 @@ __pycache__/
 *.pyc
 
 # Collected static output
-staticfiles/
+
 
 # Editor/system
 .vscode/
